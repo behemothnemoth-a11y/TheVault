@@ -1,4 +1,5 @@
 """Persistent Vault desktop shell with VLC inside the same window."""
+import ctypes
 import json
 from pathlib import Path
 import sys
@@ -32,7 +33,7 @@ class EmbeddedPlayer(VlcWindow):
             self.owner.showFullScreen()
             self.setFocus()
         else:
-            self.owner.showMaximized()
+            self.owner.show_work_area()
         self.fullscreen_button.setText('Exit fullscreen' if entering else 'Fullscreen')
 
     def escape(self):
@@ -46,7 +47,7 @@ class EmbeddedPlayer(VlcWindow):
         self.handle.done = True
         self.owner.stack.setCurrentWidget(self.owner.closing_screen if self.owner.closing else self.owner.web)
         if self.owner.isFullScreen():
-            self.owner.showMaximized()
+            self.owner.show_work_area()
         if not self.owner.closing:
             self.owner.web.setFocus()
         self.owner.page.runJavaScript("window.dispatchEvent(new Event('vault-desktop-player-closed'))")
@@ -168,6 +169,39 @@ class VaultWindow(QMainWindow):
         if load:
             self.web.setUrl(QUrl(url))
 
+    def show_work_area(self):
+        """Fill the usable Windows desktop without covering the taskbar."""
+        self.showNormal()
+        self.show()
+        QTimer.singleShot(0, self._fit_work_area)
+
+    def _fit_work_area(self):
+        if sys.platform == 'win32':
+            class Rect(ctypes.Structure):
+                _fields_ = [('left', ctypes.c_long), ('top', ctypes.c_long),
+                            ('right', ctypes.c_long), ('bottom', ctypes.c_long)]
+
+            class MonitorInfo(ctypes.Structure):
+                _fields_ = [('cbSize', ctypes.c_ulong), ('rcMonitor', Rect),
+                            ('rcWork', Rect), ('dwFlags', ctypes.c_ulong)]
+
+            user32 = ctypes.windll.user32
+            hwnd = int(self.winId())
+            monitor = user32.MonitorFromWindow(hwnd, 2)  # MONITOR_DEFAULTTONEAREST
+            info = MonitorInfo()
+            info.cbSize = ctypes.sizeof(MonitorInfo)
+            if monitor and user32.GetMonitorInfoW(monitor, ctypes.byref(info)):
+                work = info.rcWork
+                width = max(1, work.right - work.left)
+                height = max(1, work.bottom - work.top)
+                flags = 0x0004 | 0x0010  # SWP_NOZORDER | SWP_NOACTIVATE
+                user32.SetWindowPos(hwnd, 0, work.left, work.top, width, height, flags)
+                return
+
+        screen = self.screen() or QApplication.primaryScreen()
+        if screen is not None:
+            self.setGeometry(screen.availableGeometry())
+
     def launch_player(self, folder):
         if self.player:
             self.stack.removeWidget(self.player)
@@ -240,7 +274,7 @@ def main():
         QMessageBox.information(None, 'The Vault', 'The Vault desktop window is already open.')
         return 0
     window = VaultWindow(sys.argv[1] if len(sys.argv) > 1 else 'http://127.0.0.1:4173/')
-    window.showMaximized()
+    window.show_work_area()
     return app.exec()
 
 
