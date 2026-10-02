@@ -231,3 +231,75 @@ body.halloween-midnight-theme .cinema-footer {
   color:#9e8ca9;
   background:linear-gradient(90deg,#080d19,#130d1b,#1d0c16);
 }
+
+/* ---- MIDNIGHT HALLOWEEN · HOME ATMOSPHERE LAYER ----
+   Lighting and depth only. Decorative Halloween motifs come later. */
+body.halloween-midnight-theme[data-vault-route="home"],
+body.halloween-midnight-theme #view .cinema-home {
+  background:
+    radial-gradient(ellipse 38rem 28rem at 84% 6%,
+      rgba(204,216,255,.13) 0%,
+      rgba(137,111,190,.09) 23%,
+      rgba(75,45,105,.045) 48%,
+      transparent 72%),
+    radial-gradient(ellipse 44rem 30rem at 10% 38%,
+      rgba(112,28,68,.12) 0%,
+      rgba(74,20,55,.055) 42%,
+      transparent 74%),
+    radial-gradient(ellipse 62rem 34rem at 55% 108%,
+      rgba(52,20,62,.16) 0%,
+      transparent 68%),
+    linear-gradient(145deg,#060a15 0%,#0a1020 42%,#110b19 72%,#160b16 100%);
+}
+
+body.halloween-midnight-theme #view .cinema-content {
+  position:relative;
+  background:
+    linear-gradient(180deg,
+      rgba(4,7,17,.02) 0%,
+      rgba(5,6,17,.08) 42%,
+      rgba(2,3,10,.24) 100%);
+  box-shadow:
+    inset 0 55px 120px rgba(166,151,220,.022),
+    inset 0 -120px 180px rgba(0,0,0,.22);
+}
+
+body.halloween-midnight-theme #view .cinema-hero {
+  box-shadow:
+    0 22px 55px rgba(0,0,0,.48),
+    0 0 0 1px rgba(255,122,0,.10),
+    inset 0 1px rgba(219,224,255,.075),
+    inset -70px -20px 120px rgba(98,51,126,.075),
+    inset 0 0 42px rgba(92,37,122,.12);
+}
+
+body.halloween-midnight-theme #view .cinema-home :is(
+  .home-card,
+  .home-command-card,
+  .home-now,
+  .home-today-strip,
+  .cinema-tools
+) {
+  box-shadow:
+    0 10px 28px rgba(0,0,0,.20),
+    inset 0 1px rgba(204,210,255,.035);
+}
+
+body.halloween-midnight-theme #view .cinema-footer {
+  box-shadow:inset 0 18px 36px rgba(0,0,0,.16);
+}
+
+@media (max-width:800px) {
+  body.halloween-midnight-theme[data-vault-route="home"],
+  body.halloween-midnight-theme #view .cinema-home {
+    background:
+      radial-gradient(ellipse 28rem 22rem at 90% 4%,
+        rgba(197,211,255,.11) 0%,
+        rgba(119,93,169,.07) 26%,
+        transparent 70%),
+      radial-gradient(ellipse 28rem 24rem at 6% 42%,
+        rgba(104,27,64,.10) 0%,
+        transparent 70%),
+      linear-gradient(145deg,#060a15,#0a1020 48%,#150b17 100%);
+  }
+}
