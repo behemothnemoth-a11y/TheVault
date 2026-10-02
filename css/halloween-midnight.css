@@ -118,3 +118,116 @@ body.halloween-midnight-theme .halloween-picker {
   box-shadow:0 18px 40px #02030a44;
 }
 body.halloween-midnight-theme .halloween-picker .eyebrow { color:#ff9c28!important; }
+
+/* Foundation correction: make Midnight Halloween visibly distinct from Midnight Cinema. */
+body.halloween-midnight-theme[data-vault-route="home"],
+body.halloween-midnight-theme #view .cinema-home {
+  background:
+    radial-gradient(circle at 82% 4%,rgba(90,31,118,.28),transparent 30rem),
+    radial-gradient(circle at 18% 30%,rgba(111,22,39,.20),transparent 34rem),
+    linear-gradient(135deg,#070b16 0%,#0b1020 45%,#120b19 100%);
+}
+body.halloween-midnight-theme #view .cinema-home :is(h1,h2,h3),
+body.halloween-midnight-theme #view .cinema-brand {
+  font-family:Georgia,Cambria,"Times New Roman",serif;
+}
+body.halloween-midnight-theme #view .cinema-brand {
+  color:#f6eee7;
+  font-size:19px;
+  letter-spacing:.08em;
+}
+body.halloween-midnight-theme #view .cinema-brand span {
+  color:#ff7a00;
+  text-shadow:0 0 16px rgba(255,122,0,.45);
+}
+body.halloween-midnight-theme .cinema-nav {
+  border-bottom:1px solid #5a2b58;
+  background:linear-gradient(90deg,rgba(7,11,22,.98),rgba(25,13,35,.98) 58%,rgba(38,12,24,.97));
+  box-shadow:0 8px 26px rgba(0,0,0,.34);
+}
+body.halloween-midnight-theme #view .cinema-nav nav>button.active {
+  color:#ff8a00;
+  border-bottom-color:#ff8a00;
+  text-shadow:0 0 12px rgba(255,138,0,.34);
+}
+body.halloween-midnight-theme #view .cinema-nav nav>button:hover,
+body.halloween-midnight-theme #view .cinema-more>summary:hover {
+  color:#d59cff;
+}
+
+body.halloween-midnight-theme .cinema-hero {
+  border:1px solid #6b345f;
+  background:linear-gradient(135deg,#11152a,#171127 62%,#28101d);
+  box-shadow:0 22px 55px rgba(0,0,0,.48),0 0 0 1px rgba(255,122,0,.10),inset 0 0 42px rgba(92,37,122,.12);
+}
+body.halloween-midnight-theme .cinema-hero::after {
+  background:linear-gradient(90deg,#090e1df7 4%,#0f1126ed 39%,#2a163c9e 69%,#5b172531 100%);
+}
+body.halloween-midnight-theme .cinema-kicker {
+  color:#ff9a2f;
+  letter-spacing:.22em;
+}
+body.halloween-midnight-theme #view .cinema-home h1 {
+  color:#f5edf7;
+  text-shadow:0 3px 20px rgba(0,0,0,.48);
+}
+body.halloween-midnight-theme #view .cinema-home h2 {
+  color:#f3e8ef;
+}
+body.halloween-midnight-theme .cinema-continue>header span,
+body.halloween-midnight-theme .cinema-discover>header p {
+  color:#bca9c5;
+}
+body.halloween-midnight-theme #view .cinema-home .cinema-media-card {
+  border-color:#35263f;
+  background:linear-gradient(180deg,rgba(23,18,38,.94),rgba(12,15,28,.96));
+  border-radius:8px;
+}
+body.halloween-midnight-theme #view .cinema-home .cinema-media-card:hover {
+  border-color:#ff8a00;
+  background:linear-gradient(180deg,#261730,#131426);
+  box-shadow:0 0 0 1px rgba(255,138,0,.12),0 8px 20px rgba(0,0,0,.28);
+}
+body.halloween-midnight-theme .cinema-cover {
+  background:linear-gradient(145deg,#21152f,#101827);
+  border:1px solid #3b2b4b;
+}
+
+body.halloween-midnight-theme #view .cinema-home :is(.home-card,.home-command-card,.home-now,.home-today-strip,.cinema-tools) {
+  border-color:#412c48;
+  background:linear-gradient(180deg,#151326,#0d1320);
+  box-shadow:0 10px 28px rgba(0,0,0,.20);
+}
+body.halloween-midnight-theme #view .cinema-home :is(.home-weather,.home-now-control,.home-today-entry) {
+  border-color:#382944;
+  background:linear-gradient(145deg,#111326,#0b1220);
+}
+body.halloween-midnight-theme .home-status-strip>button,
+body.halloween-midnight-theme .home-status-strip>span {
+  border-color:#3f2c48;
+  background:#0f1121;
+}
+body.halloween-midnight-theme #view .cinema-home .home-status-strip>button:hover {
+  border-color:#a75d9a;
+}
+body.halloween-midnight-theme .halloween-picker {
+  border:1px solid #773f65;
+  background:linear-gradient(135deg,#25102b 0%,#10182a 52%,#3b111f 100%);
+  box-shadow:0 16px 42px rgba(0,0,0,.34),inset 0 0 28px rgba(111,43,132,.12);
+}
+body.halloween-midnight-theme #view .halloween-kind .button {
+  border-color:#64406d;
+  background:#21162e;
+  color:#e2c9e8;
+}
+body.halloween-midnight-theme #view .halloween-kind .button.primary {
+  border-color:#ff8a00;
+  background:#ff8a00;
+  color:#160c18;
+  box-shadow:0 0 18px rgba(255,138,0,.16);
+}
+body.halloween-midnight-theme .cinema-footer {
+  border-top-color:#4a2c4a;
+  color:#9e8ca9;
+  background:linear-gradient(90deg,#080d19,#130d1b,#1d0c16);
+}
