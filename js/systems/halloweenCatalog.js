@@ -1,10 +1,17 @@
-const movie = (title, year, tags = [], requires = []) => ({
+import { categorizeHalloweenEntry } from "./halloweenCategories.js";
+
+const withCategories = entry => ({
+  ...entry,
+  categories: categorizeHalloweenEntry(entry)
+});
+
+const movie = (title, year, tags = [], requires = []) => withCategories({
   kind: "movie", title, year, tags, requires
 });
-const show = (title, year, tags = [], requires = []) => ({
+const show = (title, year, tags = [], requires = []) => withCategories({
   kind: "show", format: "series", title, year, tags, requires
 });
-const special = (series, title, year, tags = []) => ({
+const special = (series, title, year, tags = []) => withCategories({
   kind: "show", format: "special", series, title: `${series} — ${title}`, year,
   tags: ["special", ...tags], requires: []
 });

@@ -134,7 +134,8 @@ function catalogItem(entry) {
       catalogOnly: true,
       format: entry.format || (entry.kind === "show" ? "series" : "movie"),
       series: entry.series || "",
-      requires: entry.requires || []
+      requires: entry.requires || [],
+      categories: entry.categories || null
     }
   };
 }
