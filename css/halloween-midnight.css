@@ -854,3 +854,423 @@ body.halloween-midnight-theme[data-vault-route="movies"] #view .atomic-wing--mov
 body.halloween-midnight-theme[data-vault-route="movies"] #view .atomic-wing--movies .movie-rating button:hover {
   color:#ff9a2f;
 }
+
+/* ---- MIDNIGHT HALLOWEEN · ALL REMAINING ATOMIC ROOMS ---- */
+body.halloween-midnight-theme:not([data-vault-route="home"]):not([data-vault-route="tv"]):not([data-vault-route="movies"]) #view .atomic-wing {
+  --a-ink:#070b16;
+  --a-screen:#0b1020;
+  --a-line:#493153;
+  --a-brass:#ff8a00;
+  --a-cream:#eeeef6;
+  --a-green:#9ac991;
+  color:#eeeef6;
+  background:
+    radial-gradient(ellipse 38rem 28rem at 88% 4%,rgba(204,216,255,.12),rgba(126,98,177,.07) 30%,transparent 72%),
+    radial-gradient(ellipse 42rem 30rem at 8% 42%,rgba(112,28,68,.11),transparent 72%),
+    linear-gradient(145deg,#060a15,#0a1020 48%,#150b17);
+}
+body.halloween-midnight-theme:not([data-vault-route="home"]):not([data-vault-route="tv"]):not([data-vault-route="movies"]) #view .atomic-wing .atomic-rail {
+  border-right-color:#35223f;
+  background:linear-gradient(90deg,#0b0e1a,#171127 58%,#0b0d18);
+  box-shadow:inset -9px 0 #050711,10px 0 28px #0009;
+}
+
+body.halloween-midnight-theme:not([data-vault-route="home"]):not([data-vault-route="tv"]):not([data-vault-route="movies"]) #view .atomic-wing .atomic-brand {
+  border-color:#30213b;
+  background:#151326;
+  color:#f3edf6;
+  box-shadow:inset 1px 1px #332b43,inset -2px -2px #090b14,3px 3px #03040a;
+}
+body.halloween-midnight-theme:not([data-vault-route="home"]):not([data-vault-route="tv"]):not([data-vault-route="movies"]) #view .atomic-wing .atomic-brand span {
+  border-color:#4a2850;
+  background:#ff8a00;
+  color:#160c18;
+  box-shadow:inset 2px 2px #ffbe72,inset -3px -3px #9a4300,0 0 16px #ff8a0030;
+}
+body.halloween-midnight-theme:not([data-vault-route="home"]):not([data-vault-route="tv"]):not([data-vault-route="movies"]) #view .atomic-wing .atomic-brand b,
+body.halloween-midnight-theme:not([data-vault-route="home"]):not([data-vault-route="tv"]):not([data-vault-route="movies"]) #view .atomic-wing .atomic-statusbar>span {
+  font-family:Georgia,Cambria,"Times New Roman",serif;
+  color:#f3edf6;
+}
+
+body.halloween-midnight-theme:not([data-vault-route="home"]):not([data-vault-route="tv"]):not([data-vault-route="movies"]) #view .atomic-wing .atomic-nav-bank>summary {
+  border-color:#30243d;
+  background:linear-gradient(#20172d,#121321);
+  color:#cbb7d1;
+  box-shadow:inset 1px 1px #40334c,inset -2px -2px #090b14;
+}
+body.halloween-midnight-theme:not([data-vault-route="home"]):not([data-vault-route="tv"]):not([data-vault-route="movies"]) #view .atomic-wing .atomic-rail nav button {
+  border-color:#2e263b;
+  background:linear-gradient(#1b1728,#11131f);
+  color:#c9bdd2;
+  box-shadow:inset 1px 1px #372f45,inset -2px -2px #090b14,3px 3px #05060b;
+}
+body.halloween-midnight-theme:not([data-vault-route="home"]):not([data-vault-route="tv"]):not([data-vault-route="movies"]) #view .atomic-wing .atomic-rail nav button:hover {
+  border-color:#7f4a7a;
+  color:#f4edf6;
+}
+body.halloween-midnight-theme:not([data-vault-route="home"]):not([data-vault-route="tv"]):not([data-vault-route="movies"]) #view .atomic-wing .atomic-rail nav button.active {
+  border-color:#ff9a2f;
+  background:linear-gradient(#ff9b2b,#d86b00);
+  color:#160c18;
+}
+
+body.halloween-midnight-theme:not([data-vault-route="home"]):not([data-vault-route="tv"]):not([data-vault-route="movies"]) #view .atomic-wing .atomic-console {
+  border-color:#31233b;
+  background:
+    radial-gradient(ellipse 36rem 24rem at 88% 4%,rgba(190,204,255,.08),transparent 70%),
+    linear-gradient(145deg,#0a0e1b,#151126 50%,#0b0d18);
+  box-shadow:inset 0 0 0 3px #060812,inset 0 0 52px #0009;
+}
+body.halloween-midnight-theme:not([data-vault-route="home"]):not([data-vault-route="tv"]):not([data-vault-route="movies"]) #view .atomic-wing .atomic-statusbar {
+  border-color:#342441;
+  background:linear-gradient(90deg,#0a0e19,#171025 58%,#210d1b);
+  color:#ddd3e2;
+  box-shadow:inset 0 0 18px #000;
+}
+body.halloween-midnight-theme:not([data-vault-route="home"]):not([data-vault-route="tv"]):not([data-vault-route="movies"]) #view .atomic-wing .atomic-statusbar>b,
+body.halloween-midnight-theme:not([data-vault-route="home"]):not([data-vault-route="tv"]):not([data-vault-route="movies"]) #view .atomic-wing .atomic-statusbar em,
+body.halloween-midnight-theme:not([data-vault-route="home"]):not([data-vault-route="tv"]):not([data-vault-route="movies"]) #view .atomic-wing .atomic-scale :is(button,b),
+body.halloween-midnight-theme:not([data-vault-route="home"]):not([data-vault-route="tv"]):not([data-vault-route="movies"]) #view .atomic-wing .atomic-editorial-refresh {
+  color:#ff9a2f;
+}
+
+body.halloween-midnight-theme:not([data-vault-route="home"]):not([data-vault-route="tv"]):not([data-vault-route="movies"]) #view .atomic-wing .atomic-wing-screen {
+  border-color:#34263f;
+  background:
+    radial-gradient(ellipse 34rem 25rem at 86% 2%,rgba(200,212,255,.08),rgba(112,87,158,.045) 32%,transparent 72%),
+    radial-gradient(ellipse 40rem 30rem at 8% 46%,rgba(105,26,63,.09),transparent 72%),
+    linear-gradient(180deg,#0b1020,#0b0e1b 62%,#090b15);
+  box-shadow:inset 0 0 42px #000,0 0 0 2px #392a45;
+}
+body.halloween-midnight-theme:not([data-vault-route="home"]):not([data-vault-route="tv"]):not([data-vault-route="movies"]) #view .atomic-wing .atomic-wing-footer {
+  border-color:#2f2239;
+  border-top-color:#4a2c4a;
+  background:linear-gradient(90deg,#0b0e18,#151020,#1d0c16);
+  box-shadow:inset 0 2px #35253f;
+}
+body.halloween-midnight-theme:not([data-vault-route="home"]):not([data-vault-route="tv"]):not([data-vault-route="movies"]) #view .atomic-wing .atomic-wing-footer button {
+  border-color:#4b3451;
+  background:#161325;
+  color:#d9c9dd;
+}
+
+body.halloween-midnight-theme:not([data-vault-route="home"]):not([data-vault-route="tv"]):not([data-vault-route="movies"]) #view .atomic-wing .atomic-rail:before,
+body.halloween-midnight-theme:not([data-vault-route="home"]):not([data-vault-route="tv"]):not([data-vault-route="movies"]) #view .atomic-wing .atomic-rail:after {
+  border-color:#392945;
+  background:#0b0e19;
+  box-shadow:inset 0 1px #493552;
+}
+body.halloween-midnight-theme:not([data-vault-route="home"]):not([data-vault-route="tv"]):not([data-vault-route="movies"]) #view .atomic-wing .atomic-rail__speaker {
+  border-color:#30223a;
+  background:repeating-linear-gradient(0deg,#0a0d18 0 4px,#24182e 5px 8px);
+  box-shadow:inset 0 0 20px #000,2px 2px #33243d;
+}
+body.halloween-midnight-theme:not([data-vault-route="home"]):not([data-vault-route="tv"]):not([data-vault-route="movies"]) #view .atomic-wing .atomic-utility summary,
+body.halloween-midnight-theme:not([data-vault-route="home"]):not([data-vault-route="tv"]):not([data-vault-route="movies"]) #view .atomic-wing .atomic-utility div {
+  border-color:#49344f;
+  background:#141222;
+  color:#d6b7dc;
+}
+
+/* ---- MIDNIGHT HALLOWEEN · CUSTOM/NON-ATOMIC ROOMS ---- */
+body.halloween-midnight-theme:not([data-vault-route="home"]):not([data-vault-route="tv"]):not([data-vault-route="movies"]) {
+  background:
+    radial-gradient(ellipse 38rem 28rem at 88% 4%,rgba(204,216,255,.10),rgba(126,98,177,.055) 30%,transparent 72%),
+    radial-gradient(ellipse 42rem 30rem at 8% 42%,rgba(112,28,68,.09),transparent 72%),
+    linear-gradient(145deg,#060a15,#0a1020 48%,#150b17);
+}
+body.halloween-midnight-theme:not([data-vault-route="home"]):not([data-vault-route="tv"]):not([data-vault-route="movies"]) #view>.panel,
+body.halloween-midnight-theme:not([data-vault-route="home"]):not([data-vault-route="tv"]):not([data-vault-route="movies"]) #view .panel:not(.atomic-home .panel) {
+  border-color:#493153;
+  background:linear-gradient(145deg,#151326,#0d1320 72%);
+  box-shadow:inset 0 1px rgba(210,216,255,.035),0 9px 26px #0005;
+}
+body.halloween-midnight-theme:not([data-vault-route="home"]):not([data-vault-route="tv"]):not([data-vault-route="movies"]) #view :is(h1,h2,h3).room-title,
+body.halloween-midnight-theme:not([data-vault-route="home"]):not([data-vault-route="tv"]):not([data-vault-route="movies"]) #view>.panel>h2 {
+  color:#f2e9f4;
+  font-family:Georgia,Cambria,"Times New Roman",serif;
+}
+
+body.halloween-midnight-theme:not([data-vault-route="home"]):not([data-vault-route="tv"]):not([data-vault-route="movies"]) #view .eyebrow {
+  color:#ff9a2f;
+}
+body.halloween-midnight-theme:not([data-vault-route="home"]):not([data-vault-route="tv"]):not([data-vault-route="movies"]) #view :is(input,select,textarea) {
+  border-color:#49344f;
+  background:#0b1020;
+  color:#eeeef6;
+}
+body.halloween-midnight-theme:not([data-vault-route="home"]):not([data-vault-route="tv"]):not([data-vault-route="movies"]) #view :is(input,select,textarea):focus {
+  outline-color:#ff8a00;
+  border-color:#7b4b78;
+}
+body.halloween-midnight-theme:not([data-vault-route="home"]):not([data-vault-route="tv"]):not([data-vault-route="movies"]) #view .button:not(.primary) {
+  border-color:#49344f;
+  background:#151326;
+  color:#d9c9dd;
+}
+body.halloween-midnight-theme:not([data-vault-route="home"]):not([data-vault-route="tv"]):not([data-vault-route="movies"]) #view .button:not(.primary):hover {
+  border-color:#ff8a00;
+  color:#ffb464;
+}
+body.halloween-midnight-theme:not([data-vault-route="home"]):not([data-vault-route="tv"]):not([data-vault-route="movies"]) #view .button.primary {
+  border-color:#ff8a00;
+  background:#ff8a00;
+  color:#160c18;
+}
+
+body.halloween-midnight-theme:not([data-vault-route="home"]):not([data-vault-route="tv"]):not([data-vault-route="movies"]) #view :is(.muted,small) {
+  color:#a99bb3;
+}
+body.halloween-midnight-theme:not([data-vault-route="home"]):not([data-vault-route="tv"]):not([data-vault-route="movies"]) #view :is(table,details) {
+  border-color:#493153;
+}
+body.halloween-midnight-theme:not([data-vault-route="home"]):not([data-vault-route="tv"]):not([data-vault-route="movies"]) #view th {
+  color:#ff9a2f;
+}
+body.halloween-midnight-theme:not([data-vault-route="home"]):not([data-vault-route="tv"]):not([data-vault-route="movies"]) #view :is(.empty,.placeholder) {
+  border-color:#493153;
+  background:#0d1120;
+  color:#c9bbce;
+}
+body.halloween-midnight-theme:not([data-vault-route="home"]):not([data-vault-route="tv"]):not([data-vault-route="movies"]) #view a {
+  color:#d9a0e4;
+}
+body.halloween-midnight-theme:not([data-vault-route="home"]):not([data-vault-route="tv"]):not([data-vault-route="movies"]) #view a:hover {
+  color:#ff9a2f;
+}
+
+/* Games inner console */
+body.halloween-midnight-theme[data-vault-route="games"] #view .games2-nav,
+body.halloween-midnight-theme[data-vault-route="games"] #view :is(.games3-pause,.games3-library-tools,.games3-shelves,.games2-panel,.games-ref-shelves) {
+  border-color:#493153!important;
+  background:#0d1120!important;
+}
+body.halloween-midnight-theme[data-vault-route="games"] #view .games2-nav button,
+body.halloween-midnight-theme[data-vault-route="games"] #view :is(.games3-library-tools button,.games3-library-tools select,.games3-pause button,.games-ref-shelves button,.games-ref-sources>button) {
+  border-color:#49344f!important;
+  background:#151326!important;
+  color:#d8c9dc!important;
+}
+body.halloween-midnight-theme[data-vault-route="games"] #view .games2-nav button:is(.active,:hover),
+body.halloween-midnight-theme[data-vault-route="games"] #view .games3-library-tools .active {
+  border-color:#ff8a00!important;
+  background:#ff8a00!important;
+  color:#160c18!important;
+}
+
+body.halloween-midnight-theme[data-vault-route="games"] #view :is(
+  .games2-current,.games2-snapshots article,.games2-card,.games2-sources article,
+  .games3-list>button,.games3-stats article,.games3-detail-grid>article,
+  .games3-archive-depth>article,.games-ref-current-intel article,.games-ref-shelf-card
+) {
+  border-color:#45324d!important;
+  background:linear-gradient(145deg,#141526,#0b101d)!important;
+  color:#eeeef6!important;
+  box-shadow:3px 4px 0 #05060b!important;
+}
+body.halloween-midnight-theme[data-vault-route="games"] #view :is(.games2-current h2,.games2-panel h2,.games3-detail-hero h2,.games3-detail-grid h3,.games3-archive-depth h3,.games-ref-shelves h2,.games-ref-shelf h3) {
+  color:#ff9a2f!important;
+}
+body.halloween-midnight-theme[data-vault-route="games"] #view .games2-cover {
+  background:linear-gradient(145deg,#291a36,#0e1320)!important;
+  color:#c6b3cb!important;
+}
+body.halloween-midnight-theme[data-vault-route="games"] #view .games-ref-shelf-card:hover {
+  border-color:#ff8a00!important;
+}
+
+/* Food translates its warm-paper system into the same Midnight palette. */
+body.halloween-midnight-theme[data-vault-route="food"] #view .food-room {
+  --paper:#121523;
+  --paper-deep:#1b172b;
+  --ink:#eeeef6;
+  --ink-soft:#afa1b8;
+  --tomato:#ff8a00;
+  --mustard:#d59cff;
+  --mint:#8fbd8a;
+  --line:#4a3450;
+  color:var(--ink);
+  background:
+    radial-gradient(ellipse 32rem 22rem at 88% 3%,rgba(204,216,255,.09),transparent 72%),
+    linear-gradient(145deg,#0b1020,#151126 65%,#140b16);
+  border-color:#56365a;
+}
+body.halloween-midnight-theme[data-vault-route="food"] #view .food-banner {
+  color:#f4edf6;
+  background:linear-gradient(135deg,#3a1732,#1b1530);
+  border:1px solid #6c3d65;
+  box-shadow:inset 0 -2px 0 #100914,0 8px 24px #0005;
+}
+
+body.halloween-midnight-theme[data-vault-route="food"] #view :is(
+  .tracker,.dish-card,.fridge-room .intake,.stock-list li,.dish-results li,
+  .drop-zone,.plate-list button,.again-list button,.water-buttons button,
+  .fridge-form input,.paste-form textarea,.pending-list input,.pending-list select,
+  .row-actions button
+) {
+  border-color:#49344f!important;
+  background:#0d1120!important;
+  color:#eeeef6!important;
+  box-shadow:none!important;
+}
+body.halloween-midnight-theme[data-vault-route="food"] #view .kcal-ring {
+  background:conic-gradient(var(--mint) var(--share),#3a3144 0);
+  box-shadow:inset 0 0 0 13px #0d1120,0 1px 0 #24182d;
+}
+body.halloween-midnight-theme[data-vault-route="food"] #view .macro i {
+  background:#3a3144;
+}
+body.halloween-midnight-theme[data-vault-route="food"] #view .use-it-up {
+  border-color:#603b58;
+  background:#211426;
+}
+body.halloween-midnight-theme[data-vault-route="food"] #view .door-face {
+  border-color:#4d3a53;
+  background:
+    radial-gradient(120% 60% at 30% 0%,rgba(202,211,255,.10),transparent 60%),
+    linear-gradient(100deg,#121523,#1a1728 35%,#0e1320 68%,#171322);
+  box-shadow:inset 0 1px rgba(255,255,255,.08),inset -14px 0 22px -18px #000,0 8px 18px -10px #000;
+}
+
+/* Calendar */
+body.halloween-midnight-theme[data-vault-route="calendar"] #view .calendar-weekdays b {
+  border-color:#49344f;
+  background:#171326;
+  color:#d5c4da;
+}
+body.halloween-midnight-theme[data-vault-route="calendar"] #view .calendar-day {
+  border-color:#3f3047;
+  background:linear-gradient(145deg,#101421,#0b101b);
+}
+body.halloween-midnight-theme[data-vault-route="calendar"] #view .calendar-day.today {
+  box-shadow:inset 0 0 0 2px #ff8a00;
+  background:linear-gradient(145deg,#1d1729,#101520);
+}
+body.halloween-midnight-theme[data-vault-route="calendar"] #view .calendar-day>header {
+  color:#ffb45f;
+}
+body.halloween-midnight-theme[data-vault-route="calendar"] #view .calendar-day>header span {
+  color:#9fd19a;
+}
+body.halloween-midnight-theme[data-vault-route="calendar"] #view .calendar-event {
+  border-color:#64405d;
+  background:#211626;
+  color:#eeeef6;
+}
+
+body.halloween-midnight-theme[data-vault-route="calendar"] #view .calendar-suggestion {
+  border-color:#49344f;
+  background:linear-gradient(145deg,#171426,#0d1220);
+}
+body.halloween-midnight-theme[data-vault-route="calendar"] #view :is(
+  .calendar-command h2,.calendar-discovery-heading h2,.calendar-month h2,.calendar-suggestion-lane h2,.calendar-suggestion h3
+) {
+  color:#ff9a2f;
+}
+body.halloween-midnight-theme[data-vault-route="calendar"] #view :is(
+  .calendar-command p,.calendar-discovery-heading p,.calendar-suggestion p,.calendar-empty
+) {
+  color:#aa9db2;
+}
+
+/* Novel Studio / Writing */
+body.halloween-midnight-theme[data-vault-route="writing"] #view .studio {
+  --s-paper:#0b1020;
+  --s-paper-2:#111526;
+  --s-card:#151326;
+  --s-ink:#eeeef6;
+  --s-ink-2:#c7b9cc;
+  --s-ink-3:#9d8fa6;
+  --s-rule:#493153;
+  --s-accent:#ff8a00;
+  --s-accent-soft:#2a1729;
+  --s-ok:#8fbd8a;
+  --s-warn:#d59cff;
+  --s-bad:#d36a72;
+  background:
+    radial-gradient(ellipse 30rem 20rem at 86% 2%,rgba(202,214,255,.08),transparent 72%),
+    linear-gradient(145deg,#0b1020,#151126 70%,#120b16);
+}
+body.halloween-midnight-theme[data-vault-route="writing"] #view .studio :is(.s-button,.s-project,.s-empty,.s-panel,.s-next,.s-scene,.s-version,.s-contract-section) {
+  border-color:#493153;
+}
+
+body.halloween-midnight-theme[data-vault-route="writing"] #view .studio .s-button.primary {
+  background:#ff8a00;
+  border-color:#ff8a00;
+  color:#160c18;
+}
+body.halloween-midnight-theme[data-vault-route="writing"] #view .studio .s-button.primary:hover {
+  background:#ffad4a;
+}
+body.halloween-midnight-theme[data-vault-route="writing"] #view .studio .s-chip.auth-approved {
+  background:#17251b;
+  border-color:#406546;
+}
+body.halloween-midnight-theme[data-vault-route="writing"] #view .studio .s-chip.auth-working {
+  background:#17182b;
+  border-color:#4a4564;
+}
+body.halloween-midnight-theme[data-vault-route="writing"] #view .studio :is(.s-stale-banner,.s-chip.auth-deferred,.s-chip.auth-reopened,.s-chip.stale,.s-chip.reopened) {
+  background:#25172a;
+  border-color:#64405d;
+}
+
+/* Projects */
+body.halloween-midnight-theme[data-vault-route="projects"] #view .projects-command,
+body.halloween-midnight-theme[data-vault-route="projects"] #view .projects-card {
+  border-color:#493153;
+  background:linear-gradient(145deg,#141526,#0b101d);
+  box-shadow:3px 4px #05060b;
+}
+body.halloween-midnight-theme[data-vault-route="projects"] #view .projects-command h2 {
+  color:#ff9a2f;
+}
+body.halloween-midnight-theme[data-vault-route="projects"] #view .projects-card h3 {
+  color:#eeeef6;
+}
+body.halloween-midnight-theme[data-vault-route="projects"] #view .projects-card header span {
+  color:#9ac991;
+}
+body.halloween-midnight-theme[data-vault-route="projects"] #view .projects-card p {
+  color:#b6a9bc;
+}
+body.halloween-midnight-theme[data-vault-route="projects"] #view .projects-card :is(select,button) {
+  border-color:#49344f;
+  background:#151326;
+  color:#d9c9dd;
+}
+body.halloween-midnight-theme[data-vault-route="projects"] #view .projects-card button:hover {
+  border-color:#ff8a00;
+  background:#2b1830;
+  color:#ff9a2f;
+}
+
+/* Reserved rooms / Settings cards */
+body.halloween-midnight-theme #view .vault-wing-placeholder {
+  color:#ddd1e1;
+  background:
+    radial-gradient(circle at 78% 0,rgba(170,132,219,.08),transparent 28rem),
+    linear-gradient(180deg,#0b1020,#0a0d18);
+}
+body.halloween-midnight-theme #view :is(
+  .vault-wing-placeholder__command,.vault-wing-placeholder__empty,
+  .vault-wing-placeholder__brief,.vault-wing-placeholder__stats,
+  .vault-wing-placeholder__cards,.vault-wing-placeholder__cards article
+) {
+  border-color:#493153;
+  background:linear-gradient(145deg,#151326,#0d1320);
+}
+body.halloween-midnight-theme #view .vault-wing-placeholder__seal,
+body.halloween-midnight-theme #view .vault-wing-placeholder__cards article>i {
+  border-color:#654064;
+  background:#151326;
+  color:#d59cff;
+}
+body.halloween-midnight-theme #view :is(
+  .vault-wing-placeholder__command h2,.vault-wing-placeholder__empty h3,
+  .vault-wing-placeholder__brief h3,.vault-wing-placeholder__cards h4
+) {
+  color:#ff9a2f;
+}
