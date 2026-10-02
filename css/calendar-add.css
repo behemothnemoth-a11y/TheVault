@@ -1,0 +1,139 @@
+/* Adding your own event: the per-day "+" and the new-event dialog. */
+
+.calendar-day > header { position: relative; }
+.calendar-day-add {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 22px;
+  height: 22px;
+  padding: 0;
+  border: 1px solid #4a3f27;
+  background: #14160e;
+  color: #9b9177;
+  font-size: 14px;
+  line-height: 1;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity .12s ease;
+}
+.calendar-day:hover .calendar-day-add,
+.calendar-day-add:focus-visible { opacity: 1; }
+.calendar-day-add:hover { border-color: var(--amber); color: var(--amber); background: #302713; }
+/* Touch and keyboard users never hover, so the control stays visible for them. */
+@media (hover: none) { .calendar-day-add { opacity: 1; } }
+
+.calendar-new-event { display: grid; gap: 10px; }
+.calendar-new-event p { color: #9b9177; font-size: 12px; }
+.calendar-new-event label {
+  display: grid;
+  gap: 5px;
+  color: #91c476;
+  font-size: 12px;
+}
+.calendar-new-event input,
+.calendar-new-event textarea {
+  min-height: 36px;
+  padding: 8px 10px;
+  border: 1px solid #6b5730;
+  background: #14160e;
+  color: #ded3b4;
+  font-size: 13px;
+}
+.calendar-new-event textarea { min-height: 74px; resize: vertical; }
+.calendar-new-times { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.calendar-new-allday {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.calendar-new-allday input { min-height: 0; width: auto; }
+
+.calendar-open-google {
+  justify-self: start;
+  padding: 6px 0;
+  color: #91c476;
+  font-size: 12px;
+  text-decoration: none;
+  border-bottom: 1px solid #3c3526;
+}
+.calendar-open-google:hover { color: var(--amber); border-bottom-color: var(--amber); }
+
+/* Events are editable now, so they read as controls rather than labels. */
+.calendar-event { cursor: pointer; }
+.calendar-event:hover { outline: 1px solid #987a3e; }
+
+/* "+N MORE" opens the day rather than just counting it. */
+.calendar-more {
+  width: 100%;
+  margin-top: 3px;
+  padding: 3px 4px;
+  border: 1px dashed #5a4c30;
+  background: none;
+  color: #c9a86a;
+  cursor: pointer;
+  text-align: center;
+}
+.calendar-more:hover { border-color: var(--amber); color: var(--amber); background: #2b241533; }
+
+/* One day, in full. */
+.calendar-day-view { display: grid; gap: 12px; min-width: min(460px, 76vw); }
+.calendar-day-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; max-height: 54vh; overflow-y: auto; }
+.calendar-day-list button {
+  display: grid;
+  gap: 3px;
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #3c3526;
+  background: #11150f;
+  color: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+.calendar-day-list button:hover { border-color: var(--amber); background: #191c11; }
+.calendar-day-list time { color: var(--amber); }
+.calendar-day-list b { color: var(--paper); }
+.calendar-day-list small { color: #91c476; }
+.calendar-day-list p { color: var(--paper-dim); }
+.calendar-day-empty { color: var(--paper-dim); }
+
+/* Agenda: what is coming, as a list. */
+.calendar-agenda-wrap { padding: 4px 2px; }
+.calendar-agenda { display: grid; gap: 10px; }
+.calendar-agenda section { border: 1px solid #3c3526; background: #0d100a; }
+.calendar-agenda header {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 10px;
+  align-items: center;
+  padding: 8px 12px;
+  border-bottom: 1px solid #3c3526;
+  background: #141810;
+}
+.calendar-agenda header b { color: var(--amber); }
+.calendar-agenda header span { color: var(--paper-dim); }
+.calendar-agenda header button {
+  min-width: 30px;
+  border: 1px solid #6b5730;
+  background: #17190f;
+  color: #c1b58f;
+  cursor: pointer;
+}
+.calendar-agenda ol { list-style: none; margin: 0; padding: 0; }
+.calendar-agenda li + li { border-top: 1px solid #241f16; }
+.calendar-agenda li button {
+  display: grid;
+  grid-template-columns: 92px 1fr;
+  gap: 10px;
+  width: 100%;
+  padding: 9px 12px;
+  border: 0;
+  background: none;
+  color: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+.calendar-agenda li button:hover { background: #161a12; }
+.calendar-agenda li time { color: var(--amber); }
+.calendar-agenda li b { color: var(--paper); }
+.calendar-agenda li small { grid-column: 2; color: #91c476; }

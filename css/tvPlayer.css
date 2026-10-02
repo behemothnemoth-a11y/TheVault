@@ -1,0 +1,36 @@
+.modal:has(.vault-tv-terminal){
+  box-sizing:border-box;
+  width:min(86vw,1480px);
+  height:min(88vh,920px);
+  min-width:720px;
+  min-height:520px;
+  max-width:96vw;
+  max-height:94vh;
+  resize:both;
+  overflow:hidden;
+  display:grid;
+  grid-template-rows:auto minmax(0,1fr) auto;
+}
+.modal:has(.vault-tv-terminal)[data-tv-size="large"]{width:min(86vw,1480px);height:min(88vh,920px)}
+.modal:has(.vault-tv-terminal)[data-tv-size="max"]{width:96vw;height:94vh}
+.modal:has(.vault-tv-terminal)>.modal__body{min-width:0;min-height:0;overflow:hidden;display:grid;grid-template-rows:minmax(0,1fr) auto;gap:6px}
+.modal:has(.vault-tv-terminal)>.modal__body>.muted{margin:0}
+.modal:has(.vault-tv-terminal)>.button-row{margin-top:8px}
+.modal:has(.vault-tv-terminal) .vault-tv-terminal{
+  width:100%;
+  height:100%;
+  min-width:0;
+  min-height:0;
+  max-width:none;
+  max-height:none;
+  resize:none;
+  overflow:hidden;
+  display:grid;
+  grid-template-rows:auto minmax(0,1fr) auto;
+}
+.modal:has(.vault-tv-terminal) .vault-tv-terminal__lights{min-width:0}
+.modal:has(.vault-tv-terminal) .vault-tv-terminal__lights>span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.modal:has(.vault-tv-terminal) .vault-tv-terminal__lights label{display:flex;align-items:center;gap:6px;white-space:nowrap}.modal:has(.vault-tv-terminal) .vault-tv-terminal__lights select{min-height:30px;border:1px solid #817048;background:#11140d;color:#d5b25e;font:700 11px var(--font-mono)}.modal:has(.vault-tv-terminal) [data-tv-track-tools]{display:flex;gap:5px;margin-left:0!important}.vault-tv-ended{background:radial-gradient(circle,#26331de8,#050604f5 68%)}
+.modal:has(.vault-tv-terminal) .vault-tv-terminal__screen{position:relative;width:100%;height:100%;min-width:0;min-height:0;max-width:100%;max-height:100%;display:block;overflow:hidden;contain:size layout paint}
+.modal:has(.vault-tv-terminal) .vault-tv-terminal video{position:absolute;inset:0;display:block;box-sizing:border-box;width:100%!important;height:100%!important;min-width:0!important;min-height:0!important;max-width:100%!important;max-height:100%!important;margin:0!important;aspect-ratio:auto!important;object-fit:contain!important;background:#000}
+.vault-tv-resume{position:absolute;inset:0;z-index:3;display:grid;place-content:center;justify-items:center;gap:12px;background:radial-gradient(circle,#1b2417e8,#050604f2 68%);color:#d7aa52;text-align:center}.vault-tv-resume>span{font:700 calc(9px * var(--atomic-type-scale,1.15)) var(--pixel);letter-spacing:.12em}.vault-tv-resume>b{color:#a9d967;font:700 clamp(26px,4vw,56px)/1 var(--display)}.vault-tv-resume>div{display:flex;gap:10px}.vault-tv-resume button{min-height:44px;padding:9px 18px;border:1px solid #7c6333;background:#242418;color:#efbd63;font:700 calc(9px * var(--atomic-type-scale,1.15)) var(--pixel);cursor:pointer}.vault-tv-resume button:first-child{border-color:#85a94b;color:#bde67a;box-shadow:inset 0 0 14px #66933344}.vault-tv-resume button:hover{border-color:#e0a33f;color:#ffe0a0}

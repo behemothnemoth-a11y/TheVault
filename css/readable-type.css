@@ -1,0 +1,59 @@
+/* A readable floor for the whole Vault.
+   ------------------------------------------------------------------------
+   Two thirds of the font declarations in this project are a fixed pixel size
+   (638 of them) and so ignore the interface-scale control entirely, which is
+   why most of the archive stayed at 7-10px however the control was set. This
+   raises any text that lands below the floor and leaves anything already
+   larger alone, and the floor itself moves with the scale control so that
+   control still does something everywhere.
+
+   max(floor, 1em) reads as "at least the floor, otherwise inherit" — 1em is
+   the parent's computed size, so text that is already comfortable keeps its
+   size and only the undersized declarations are lifted.
+
+   Loaded last so it wins over the per-wing readability sheets that came
+   before it; those set a hard 12px and would otherwise pin those wings while
+   the rest of the archive scaled. */
+
+:root { --vault-text-floor: 13px; }
+body[data-ui-scale="90"] { --vault-text-floor: 11px; }
+body[data-ui-scale="100"] { --vault-text-floor: 12px; }
+body[data-ui-scale="115"] { --vault-text-floor: 13px; }
+body[data-ui-scale="130"] { --vault-text-floor: 15px; }
+body[data-ui-scale="150"] { --vault-text-floor: 17px; }
+body[data-ui-scale="170"] { --vault-text-floor: 19px; }
+
+#view :is(p, span, small, b, strong, em, i, label, li, dt, dd, td, th,
+          time, summary, figcaption, legend, option, a, button, input, select, textarea, footer, caption, output),
+#modal-root :is(p, span, small, b, strong, em, i, label, li, dt, dd, td, th,
+                time, summary, figcaption, legend, option, a, button, input, select, textarea, footer, caption, output),
+.vault-toast :is(p, span, small, b, strong, em) {
+  font-size: max(var(--vault-text-floor), var(--own-font, 1em)) !important;
+}
+/* Display type — a big temperature, a headline figure — opts out by declaring
+   --own-font instead of font-size, so the floor lifts it rather than flattening it. */
+
+/* Headings keep their own scale — they are already the largest text on a card,
+   and lifting their descendants would flatten the difference. */
+#view :is(h1, h2, h3, h4) :is(span, small, b, em, i),
+#modal-root :is(h1, h2, h3, h4) :is(span, small, b, em, i) {
+  font-size: inherit !important;
+}
+
+/* Headings themselves get a floor too, a step above body text. */
+#view :is(h3, h4), #modal-root :is(h3, h4) {
+  font-size: max(calc(var(--vault-text-floor) + 2px), 1em);
+}
+#view :is(h1, h2), #modal-root :is(h1, h2) {
+  font-size: max(calc(var(--vault-text-floor) + 6px), 1em);
+}
+
+/* Controls need a target as well as legible text. */
+#view :is(button, select, input), #modal-root :is(button, select, input) { min-height: 32px; }
+#view .atomic-rail nav button { min-height: 44px; }
+
+/* Deliberate exceptions: dense numeric strips and counters where the small
+   size is the design, not an oversight. */
+#view :is(.home-rain-strip, .home-hour-strip, .calendar-weekdays) :is(small, em) {
+  font-size: max(11px, .85em) !important;
+}

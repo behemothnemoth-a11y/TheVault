@@ -1,0 +1,15 @@
+const KEY="vault-reliability-jobs-v1",LIMIT=100;
+let jobs=read();
+function read(){try{const value=JSON.parse(localStorage.getItem(KEY)||"[]");return Array.isArray(value)?value.slice(0,LIMIT):[]}catch{return[]}}
+function write(){try{localStorage.setItem(KEY,JSON.stringify(jobs.slice(0,LIMIT)))}catch{}}
+function stamp(){return new Date().toISOString()}
+function id(){return`job_${Date.now().toString(36)}_${crypto.getRandomValues(new Uint32Array(1))[0].toString(36)}`}
+function clean(value,max=500){return String(value||"").trim().slice(0,max)}
+function number(value){const parsed=Number(value);return Number.isFinite(parsed)&&parsed>=0?parsed:0}
+export function startJob({title,phase,detail="",kind="vault_task"}){const job={id:id(),kind:clean(kind,80),title:clean(title,160),phase:clean(phase,240),detail:clean(detail),status:"running",startedAt:stamp(),updatedAt:stamp(),completedAt:null,current:0,total:0,percent:0,results:{updated:0,skipped:0,failed:0,queued:0},checkpoints:[],error:""};jobs=[job,...jobs.filter(entry=>entry.status!=="running")].slice(0,LIMIT);write();return job.id}
+export function updateJob(jobId,patch={}){const job=jobs.find(entry=>entry.id===jobId);if(!job)return null;if(patch.phase)job.phase=clean(patch.phase,240);if(patch.detail!==undefined)job.detail=clean(patch.detail);if(patch.current!==undefined)job.current=number(patch.current);if(patch.total!==undefined)job.total=number(patch.total);job.percent=job.total?Math.min(100,Math.round(job.current/job.total*100)):job.percent;for(const key of Object.keys(job.results))if(patch[key]!==undefined)job.results[key]=number(patch[key]);job.updatedAt=stamp();const last=job.checkpoints.at(-1);if(job.total&&(!last||last.current!==job.current||last.phase!==job.phase)){job.checkpoints.push({at:job.updatedAt,current:job.current,total:job.total,phase:job.phase});job.checkpoints=job.checkpoints.slice(-30)}write();return structuredClone(job)}
+export function completeJob(jobId,{heading,summary,results={}}={}){const job=jobs.find(entry=>entry.id===jobId);if(!job)return null;job.status="complete";job.phase=clean(heading||job.phase,240);job.detail=clean(summary||job.detail);job.current=job.total||job.current;job.percent=100;job.results={...job.results,...Object.fromEntries(Object.entries(results).map(([key,value])=>[key,number(value)]))};job.completedAt=stamp();job.updatedAt=job.completedAt;write();return structuredClone(job)}
+export function failJob(jobId,error){const job=jobs.find(entry=>entry.id===jobId);if(!job)return null;job.status="failed";job.error=clean(error,1000);job.completedAt=stamp();job.updatedAt=job.completedAt;write();return structuredClone(job)}
+export function abandonRunningJobs(){let changed=false;for(const job of jobs)if(job.status==="running"){job.status="interrupted";job.error="The Vault closed before this task reported completion.";job.completedAt=stamp();job.updatedAt=job.completedAt;changed=true}if(changed)write()}
+export function recentJobs(limit=25){return structuredClone(jobs.slice(0,Math.max(1,Math.min(100,Number(limit)||25))))}
+export function clearFinishedJobs(){jobs=jobs.filter(job=>job.status==="running");write()}

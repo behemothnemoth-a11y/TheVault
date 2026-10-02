@@ -1,0 +1,45 @@
+/* Type sizing is handled globally by readable-type.css, which scales with the
+   interface control; the vitals numbers keep their own larger size. */
+.music-wing .music-vitals b { --own-font: 22px; }
+
+/* The catalogue shelf switch, depth control, and paged grid.
+   Cards keep the existing .music-artist-card styling — only the header row and the
+   SHOW MORE control are new. */
+
+.music-library > header {
+  display: flex;
+  align-items: end;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.music-library > header > div:first-child { margin-right: auto; }
+
+.music-shelf-switch { display: flex; gap: 0; }
+.music-shelf-switch .button { min-width: 92px; }
+.music-shelf-switch .button + .button { margin-left: -1px; }
+
+.music-library > header label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #91c476;
+  font-size: 12px;
+}
+.music-library > header select {
+  min-height: 32px;
+  padding: 5px 8px;
+  border: 1px solid #6b5730;
+  background: #14160e;
+  color: #ded3b4;
+  font-size: 12px;
+}
+
+.music-show-more {
+  display: flex;
+  justify-content: center;
+  margin-top: 14px;
+}
+.music-show-more .button { min-width: 260px; }
+
+/* The finished marker on an album card, matching the artist card's footer row. */
+.music-artist-card .is-done { border-color: var(--amber); color: var(--amber); }

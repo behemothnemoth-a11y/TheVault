@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><title>Vault Stage 3 Time Machine Test</title></head>
+<body>
+  <div id="boot"></div><button class="brand" type="button">THE VAULT</button><nav id="main-nav"></nav>
+  <input id="global-search"><div id="view-code"></div><div id="view-title"></div><div id="view"></div>
+  <div id="schema-version"></div><div id="event-count"></div><div id="level-chip"></div><div id="observation-strip"></div>
+  <button id="palette-button"></button><button id="discovery-button"></button><div id="toast-region"></div>
+  <div id="modal-root"></div><div id="palette-root"></div><input id="import-input" type="file">
+  <pre id="test-result">RUNNING</pre>
+  <script type="module">
+    const output = document.querySelector("#test-result");
+    const report = value => {
+      const text = typeof value === "string" ? value : JSON.stringify(value);
+      output.textContent = text;
+      localStorage.setItem("vault_stage3_time_machine_result", text);
+    };
+    const pause = (milliseconds = 100) => new Promise(resolve => setTimeout(resolve, milliseconds));
+    window.addEventListener("error", event => report(`ERROR\n${event.message}\n${event.filename}:${event.lineno}:${event.colno}`));
+    window.addEventListener("unhandledrejection", event => report(`REJECTION\n${event.reason?.stack || event.reason}`));
+    try {
+      await import("../js/app.js");
+      window.dispatchEvent(new Event("load"));
+      await pause(500);
+      const store = await import("../js/core/store.js");
+      const { runHealthCheck } = await import("../js/systems/health.js");
+
+      document.querySelector('[data-route="movies"]').click();
+      await pause();
+      let card = document.querySelector("[data-item-id]");
+      const itemId = card.dataset.itemId;
+      const original = structuredClone(store.getState().items[itemId]);
+      card.querySelector('[data-rating="6"]').click();
+      await pause();
+      card = document.querySelector(`[data-item-id="${CSS.escape(itemId)}"]`);
+      card.querySelector("[data-toggle-complete]").click();
+      await pause();
+      card = document.querySelector(`[data-item-id="${CSS.escape(itemId)}"]`);
+      card.querySelector("[data-note]").click();
+      await pause();
+      document.querySelector("[data-stage3-note]").value = "Stage 3 canonical note test";
+      document.querySelector('#modal-root [data-action="0"]').click();
+      await pause(500);
+      const itemEvents = store.getState().events.filter(event => event.itemId === itemId);
+      const itemActions = {
+        ratingEvent: itemEvents.some(event => ["ITEM_RATED", "RATING_CHANGED"].includes(event.type) && event.meta?.to === 6),
+        completionEvent: itemEvents.some(event => ["ITEM_COMPLETED", "ITEM_UNCOMPLETED"].includes(event.type)),
+        noteEvent: itemEvents.some(event => ["NOTE_ADDED", "NOTE_CHANGED"].includes(event.type)),
+        itemChanged: store.getState().items[itemId].note === "Stage 3 canonical note test"
+      };
+
+      document.querySelector('[data-route="tv"]').click();
+      await pause();
+      const linkedShow = Object.values(store.getState().items).find(item =>
+        item.wing === "tv" && Object.values(item.episodes || {}).some(episode => episode.sourcePath)
+      );
+      document.querySelector(`[data-open-series="${CSS.escape(linkedShow.id)}"]`).click();
+      await pause();
+      const editor = document.querySelector("[data-edit-episode]");
+      const episodeId = editor.dataset.editEpisode;
+      editor.click();
+      await pause();
+      const episodeModal = document.querySelector("#modal-root .modal");
+      episodeModal.querySelector("[data-watched]").checked = !episodeModal.querySelector("[data-watched]").checked;
+      episodeModal.querySelector('[data-er="7"]').click();
+      episodeModal.querySelector("[data-note]").value = "Stage 3 episode history test";
+      episodeModal.querySelector("[data-rewatches]").value = Number(episodeModal.querySelector("[data-rewatches]").value || 0) + 1;
+      episodeModal.querySelector('[data-action="0"]').click();
+      await pause(750);
+      const episodeEvents = store.getState().events.filter(event => event.episodeId === episodeId);
+      const episodeActions = {
+        completionEvent: episodeEvents.some(event => ["EPISODE_COMPLETED", "EPISODE_UNCOMPLETED"].includes(event.type)),
+        ratingEvent: episodeEvents.some(event => ["EPISODE_RATED", "EPISODE_RATING_CHANGED"].includes(event.type)),
+        noteEvent: episodeEvents.some(event => event.type === "EPISODE_NOTE_CHANGED"),
+        rewatchEvent: episodeEvents.some(event => event.type === "EPISODE_REWATCHED")
+      };
+
+      document.querySelector('[data-route="timeline"]').click();
+      await pause(750);
+      const timeline = {
+        title: document.querySelector("#view-title").textContent,
+        code: document.querySelector("#view-code").textContent,
+        controls: document.querySelectorAll("[data-timeline-filter]").length,
+        days: document.querySelectorAll(".time-day").length,
+        events: document.querySelectorAll(".time-event").length,
+        truthNotice: /actually witnessed/i.test(document.querySelector("#view").textContent)
+      };
+      document.querySelector('[data-timeline-filter="signal"][data-timeline-value="all"]').click();
+      await pause();
+      timeline.allSignalsRendered = document.querySelectorAll(".time-event").length >= timeline.events;
+
+      await store.flushPersistence();
+      const persisted = await (await import("../js/core/database.js")).readPrimaryState();
+      const health = runHealthCheck();
+      report({
+        result: "ok",
+        schema: store.getState().schemaVersion,
+        stage3: store.getState().metadata.stage3,
+        itemActions,
+        episodeActions,
+        timeline,
+        persistence: {
+          schema: persisted.schemaVersion,
+          itemNotePersisted: persisted.items[itemId].note === "Stage 3 canonical note test",
+          canonicalEpisodeEvents: persisted.events.filter(event => event.episodeId === episodeId).length
+        },
+        health: {
+          ok: health.ok,
+          issueCount: health.issues.length,
+          sampleIssues: health.issues.slice(0, 10),
+          items: health.checked,
+          episodes: health.episodes,
+          linkedEpisodes: health.linkedEpisodes
+        },
+        originalItemStatus: original.status
+      });
+    } catch (error) {
+      report(`TEST ERROR\n${error.stack || error}`);
+    }
+  </script>
+</body>
+</html>

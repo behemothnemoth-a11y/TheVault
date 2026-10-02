@@ -1,0 +1,23 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><title>Vault Stage 4 Sentinel Test</title></head><body>
+<div id="boot"></div><button class="brand">V</button><nav id="main-nav"></nav><input id="global-search">
+<div id="view-code"></div><div id="view-title"></div><div id="view"></div><div id="schema-version"></div><div id="event-count"></div>
+<div id="level-chip"></div><div id="observation-strip"></div><button id="palette-button"></button><button id="discovery-button"></button>
+<div id="toast-region"></div><div id="modal-root"></div><div id="palette-root"></div><input id="import-input" type="file">
+<pre id="result">RUNNING</pre>
+<script type="module">
+const output=document.querySelector("#result");const report=value=>{const text=typeof value==="string"?value:JSON.stringify(value);output.textContent=text;localStorage.setItem("vault_stage4_sentinel_result",text)};
+const pause=(ms=100)=>new Promise(resolve=>setTimeout(resolve,ms));
+window.addEventListener("error",event=>report(`ERROR\n${event.message}\n${event.filename}:${event.lineno}`));
+window.addEventListener("unhandledrejection",event=>report(`REJECTION\n${event.reason?.stack||event.reason}`));
+try{
+  await import("../js/app.js");await pause(500);
+  const store=await import("../js/core/store.js");const sentinel=await import("../js/systems/sentinel.js");const {runHealthCheck}=await import("../js/systems/health.js");
+  const linkedBefore=Object.values(store.getState().items).filter(item=>item.wing==="tv").flatMap(item=>Object.values(item.episodes||{})).filter(ep=>ep.sourcePath).map(ep=>`${ep.id}|${ep.sourcePath}`).sort();
+  document.querySelector('[data-route="sentinel"]').click();await pause(500);
+  const initial={title:document.querySelector("#view-title").textContent,code:document.querySelector("#view-code").textContent,scanButton:Boolean(document.querySelector("[data-sentinel-scan]")),schema:store.getState().schemaVersion};
+  const scan=await sentinel.runSentinelScan({quiet:true});await store.flushPersistence();sentinel.renderSentinelPage();await pause();
+  const linkedAfter=Object.values(store.getState().items).filter(item=>item.wing==="tv").flatMap(item=>Object.values(item.episodes||{})).filter(ep=>ep.sourcePath).map(ep=>`${ep.id}|${ep.sourcePath}`).sort();
+  const persisted=await (await import("../js/core/database.js")).readPrimaryState();const health=runHealthCheck();
+  report({result:"ok",initial,scan:{root:scan.root,inventoryFiles:scan.inventoryFiles,linkedPaths:scan.linkedPaths,linkedPresent:scan.linkedPresent,missingCount:scan.missingCount,untrackedCount:scan.untrackedCount,duplicateCount:scan.duplicateCount,likelyMoveCount:scan.likelyMoveCount,durationMs:scan.durationMs},safety:{episodeLinksUnchanged:JSON.stringify(linkedBefore)===JSON.stringify(linkedAfter),observationNotice:/No paths were relinked/i.test(document.querySelector("#view").textContent)},persistence:{schema:persisted.schemaVersion,lastScanAt:persisted.metadata.stage4.lastScanAt,reportHistory:persisted.metadata.stage4.reports.length},health:{ok:health.ok,issueCount:health.issues.length,sampleIssues:health.issues.slice(0,10),items:health.checked,episodes:health.episodes,linkedEpisodes:health.linkedEpisodes}});
+}catch(error){report(`TEST ERROR\n${error.stack||error}`)}
+</script></body></html>

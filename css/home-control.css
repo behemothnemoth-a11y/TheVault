@@ -1,0 +1,66 @@
+/* HOME as a control room: what the Vault can do to itself, plus the weather. */
+
+/* Type sizing is handled globally by readable-type.css. */
+
+.home-control { display: flex; flex-direction: column; gap: 12px; padding: 8px; min-width: 0; }
+
+.home-control-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  padding: 18px;
+  border: 1px solid #54472c;
+  background: #0d100a;
+}
+.home-control-head h2 { margin-top: 6px; color: var(--amber); font: 20px var(--pixel); }
+.home-control-state { display: grid; gap: 6px; justify-items: end; text-align: right; }
+.home-control-state span { display: flex; align-items: center; gap: 8px; font-size: 12px; color: #ded3b4; }
+.home-control-state i { width: 9px; height: 9px; border-radius: 50%; background: #6f7f58; }
+.home-control-state .warn i { background: #c9853a; }
+.home-control-state small { color: #8d8471; font-size: 12px; }
+
+.home-functions {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 10px;
+}
+
+.home-function {
+  position: relative;
+  display: grid;
+  gap: 6px;
+  min-height: 88px;
+  padding: 14px 16px;
+  border: 1px solid #504327;
+  background: #11130d;
+  box-shadow: 3px 4px #050503;
+  text-align: left;
+  cursor: pointer;
+}
+.home-function:hover { border-color: #987a3e; background: #191c11; }
+.home-function b { color: #ded3b4; font: 13px/1.35 var(--pixel); }
+.home-function small { color: #9b9177; font-size: 12px; line-height: 1.5; }
+.home-function.primary { border-color: var(--amber); }
+.home-function.primary b { color: var(--amber); }
+
+/* The count of things waiting behind a button. */
+.home-function i {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  min-width: 24px;
+  padding: 3px 7px;
+  border: 1px solid #6b5730;
+  background: #2b2415;
+  color: var(--amber);
+  font-size: 12px;
+  font-style: normal;
+  text-align: center;
+}
+
+@media (max-width: 900px) {
+  .home-functions { grid-template-columns: 1fr; }
+  .home-control-state { justify-items: start; text-align: left; }
+}

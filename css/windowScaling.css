@@ -1,0 +1,10 @@
+/* Desktop-first fluid sizing, loaded last so every wing follows the native window. */
+.shell,.main,.view,.atomic-home,.atomic-wing,.atomic-console,.atomic-screen,.tv-archive,.music-archive,.youtube-archive,.comic-archive{min-width:0!important;max-width:100%}
+.atomic-home,.atomic-wing{width:100%;grid-template-columns:clamp(146px,14vw,188px) minmax(0,1fr)!important}
+.atomic-home>*,.atomic-wing>*,.atomic-console>*,.atomic-screen>*{min-width:0}
+.tv-poster-grid,.season-poster-grid,.tv-genre-directory,.comic-card-grid,.book-card-grid,.youtube-channel-grid,.music-artist-grid{grid-template-columns:repeat(auto-fit,minmax(min(190px,100%),1fr))!important}
+.continue-grid,.recent-grid,.music-recent-grid,.youtube-upload-grid{grid-template-columns:repeat(auto-fit,minmax(min(150px,100%),1fr))!important}
+img,video,iframe,.vault-video-stage,.reader-stage{max-width:100%}
+@media(max-width:1450px){.view{padding-inline:clamp(10px,1.6vw,24px)}.atomic-console,.comic-archive-console,.tv-collection-console,.youtube-command,.music-command{gap:10px}.atomic-screen{grid-template-columns:minmax(0,1fr) clamp(230px,24vw,300px)!important}}
+@media(max-width:1120px){.atomic-home,.atomic-wing{grid-template-columns:138px minmax(0,1fr)!important}.atomic-screen{grid-template-columns:minmax(0,1fr)!important}.atomic-today{border-left:0!important;border-top:1px solid var(--line,#55482e)}.tv-collection-console,.comic-archive-console,.youtube-command,.music-command,.tv-command-deck{grid-template-columns:minmax(0,1fr)!important}.topbar{gap:12px}.topbar__actions{min-width:min(390px,48vw)}}
+@media(max-width:820px){body{min-width:700px}.shell{grid-template-columns:154px minmax(0,1fr)}.atomic-home,.atomic-wing{grid-template-columns:126px minmax(0,1fr)!important}.topbar{padding-inline:12px}.topbar__actions{min-width:300px}}

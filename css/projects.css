@@ -1,0 +1,64 @@
+/* The room rail can now hold more rooms than fit on a short screen, so it scrolls
+   instead of running off the bottom where the last rooms cannot be reached. */
+.atomic-rail {
+  max-height: 100vh;
+  overflow-y: auto;
+  scrollbar-width: thin;
+}
+
+/* PROJECTS: things you are making, whatever the medium. */
+
+/* Type sizing is handled globally by readable-type.css. */
+
+.projects-wing { display: flex; flex-direction: column; gap: 12px; padding: 8px; min-width: 0; }
+
+.projects-command {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 18px;
+  border: 1px solid #54472c;
+  background: #0d100a;
+}
+.projects-command h2 { color: var(--amber); font: 20px var(--pixel); margin-top: 6px; }
+
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 12px;
+  margin-top: 14px;
+}
+
+.projects-card {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 14px;
+  border: 1px solid #504327;
+  background: #11130d;
+  box-shadow: 3px 4px #050503;
+}
+.projects-card h3 { color: #ded3b4; font: 15px/1.35 var(--pixel); }
+.projects-card header span { display: block; margin-top: 6px; color: #91c476; font-size: 12px; }
+.projects-card p { color: #b7ad94; font-size: 13px; line-height: 1.55; flex: 1; }
+.projects-card > div { display: flex; gap: 6px; align-items: center; }
+.projects-card select {
+  flex: 1;
+  min-height: 36px;
+  border: 1px solid #6b5730;
+  background: #17190f;
+  color: #c1b58f;
+  font-size: 12px;
+  padding: 6px;
+}
+.projects-card button {
+  min-height: 36px;
+  border: 1px solid #6b5730;
+  background: #17190f;
+  color: #c1b58f;
+  padding: 7px 12px;
+  font-size: 12px;
+  cursor: pointer;
+}
+.projects-card button:hover { background: #302713; color: var(--amber); }

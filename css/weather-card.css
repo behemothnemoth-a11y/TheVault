@@ -1,0 +1,182 @@
+/* The weather card, given the treatment a weather app gets.
+   Icons are inline SVG from js/systems/weatherIcons.js; everything here is the
+   Vault's own palette so the card belongs in the room it sits in. */
+
+.wx { display: block; overflow: visible; }
+
+/* Condition washes. Light enough to read through, distinct enough to feel. */
+.wx-mood-clear-day   { --wx-wash: radial-gradient(120% 90% at 18% 0%, #f2bd4b22, transparent 60%); --wx-edge: #6b5730; }
+.wx-mood-clear-night { --wx-wash: radial-gradient(120% 90% at 18% 0%, #71a9b822, transparent 60%); --wx-edge: #3f5560; }
+.wx-mood-cloud       { --wx-wash: radial-gradient(120% 90% at 18% 0%, #c8bfa81c, transparent 60%); --wx-edge: #5b5647; }
+.wx-mood-fog         { --wx-wash: linear-gradient(#c8bfa818, transparent 70%); --wx-edge: #5b5647; }
+.wx-mood-rain        { --wx-wash: radial-gradient(120% 90% at 18% 0%, #71a9b82e, transparent 62%); --wx-edge: #3f5560; }
+.wx-mood-snow        { --wx-wash: radial-gradient(120% 90% at 18% 0%, #dce7ea22, transparent 62%); --wx-edge: #566268; }
+.wx-mood-storm       { --wx-wash: radial-gradient(120% 90% at 18% 0%, #f2bd4b26, transparent 45%), linear-gradient(#0000, #71a9b81a); --wx-edge: #6b5730; }
+
+.home-weather { background-image: var(--wx-wash); }
+
+/* ---- the hero on the compact card ---- */
+
+.wx-hero {
+  display: grid;
+  grid-template-columns: auto auto 1fr;
+  align-items: center;
+  gap: 16px;
+  padding: 4px 2px 14px;
+}
+.wx-hero-icon { filter: drop-shadow(0 2px 6px #0008); }
+.wx-hero-read { display: grid; gap: 2px; }
+.wx-temp {
+  color: var(--amber);
+  --own-font: 46px;
+  font: 46px/1 var(--pixel);
+  letter-spacing: .01em;
+  text-shadow: 0 2px 0 #0006;
+}
+.wx-hero-read strong { color: var(--paper); letter-spacing: .06em; }
+.wx-hero-read small { color: var(--paper-dim); }
+
+.wx-hero-facts { display: grid; gap: 5px; margin: 0; justify-items: end; }
+.wx-hero-facts > div { display: flex; align-items: baseline; gap: 8px; }
+.wx-hero-facts dt { color: #91c476; letter-spacing: .06em; }
+.wx-hero-facts dd { margin: 0; color: var(--paper); min-width: 62px; text-align: right; }
+
+/* ---- five days, compact ---- */
+
+.wx-days {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 6px;
+}
+.wx-days > span {
+  display: grid;
+  justify-items: center;
+  gap: 3px;
+  padding: 9px 4px;
+  border: 1px solid var(--wx-edge, #494632);
+  border-radius: 3px;
+  background: linear-gradient(#0f140f, #0b100b);
+}
+.wx-days small { color: #8f886f; letter-spacing: .06em; }
+.wx-days b { color: var(--paper); }
+.wx-days i { color: var(--paper-dim); font-style: normal; }
+.wx-days em { color: var(--blue); font-style: normal; min-height: 1em; }
+.wx-days em.dry { opacity: 0; }
+
+.home-weather-hint em {
+  color: var(--amber);
+  font-style: normal;
+  white-space: nowrap;
+}
+
+/* ---- the opened card ---- */
+
+.wx-full-hero {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 18px;
+  padding: 16px 18px;
+  border: 1px solid var(--wx-edge, #6b5730);
+  border-radius: 4px;
+  background-image: var(--wx-wash), linear-gradient(#141810, #0c100c);
+}
+.wx-full-icon { filter: drop-shadow(0 3px 8px #0009); }
+.wx-full-read { display: grid; gap: 3px; }
+.wx-full-read b { --own-font: 54px; color: var(--amber); font: 54px/1 var(--pixel); text-shadow: 0 2px 0 #0006; }
+.wx-full-read strong { color: var(--paper); letter-spacing: .07em; }
+.wx-full-read small { color: var(--paper-dim); }
+
+.wx-sun { display: grid; gap: 8px; }
+.wx-sun span { display: grid; grid-template-columns: 14px 1fr auto; gap: 8px; align-items: center; color: #91c476; }
+.wx-sun b { color: var(--paper); }
+.wx-sun i { width: 10px; height: 10px; border-radius: 50%; }
+.wx-sunrise { background: var(--amber); box-shadow: 0 0 8px #f2bd4b88; }
+.wx-sunset { background: #a86f20; box-shadow: 0 0 8px #a86f2088; }
+
+/* Next three hours */
+.wx-rain {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: 3px;
+  align-items: end;
+  padding: 10px;
+  border: 1px solid #2c3a45;
+  border-radius: 3px;
+  background: linear-gradient(#0d1216, #0a0d10);
+}
+.wx-rain span { display: grid; gap: 5px; justify-items: center; min-width: 0; }
+.wx-rain i {
+  display: block;
+  width: 100%;
+  height: 60px;
+  border-radius: 2px 2px 0 0;
+  background:
+    linear-gradient(to top, #71a9b8 0%, #9ccbd8 var(--fill, 0%), transparent var(--fill, 0%)),
+    repeating-linear-gradient(0deg, #131a1f 0 3px, #0e1418 3px 6px);
+  box-shadow: inset 0 -1px 0 #71a9b855;
+}
+.wx-rain small { color: #7f8b93; white-space: nowrap; min-height: 1em; }
+
+/* Facts wrap as whole phrases rather than splitting "9 MPH" across two lines. */
+.wx-facts { display: flex; flex-wrap: wrap; gap: 4px 14px; }
+.wx-facts span { white-space: nowrap; }
+
+/* Today by the hour */
+.wx-hourly {
+  display: block;
+  width: 100%;
+  height: 150px;
+  padding: 8px 10px 0;
+  border: 1px solid #4a4330;
+  border-radius: 3px;
+  background: linear-gradient(#12160f, #0b0e0a);
+  overflow: visible;
+}
+.wx-axis { fill: #8f886f; font-size: 13px; font-family: var(--mono); }
+.wx-mark { fill: var(--paper); font-size: 13px; font-family: var(--mono); }
+
+/* Five days, as range bars */
+.wx-five { display: grid; gap: 5px; }
+.wx-five article {
+  display: grid;
+  grid-template-columns: 92px 34px 40px minmax(80px, 1fr) 40px 48px;
+  gap: 10px;
+  align-items: center;
+  padding: 9px 12px;
+  border: 1px solid #3c3526;
+  border-radius: 3px;
+  background: linear-gradient(#11150f, #0c100c);
+}
+.wx-five b { color: var(--paper); letter-spacing: .05em; }
+.wx-five-icon { display: flex; justify-content: center; }
+.wx-five-low { color: var(--paper-dim); font-style: normal; text-align: right; }
+.wx-five-high { color: var(--amber); font-style: normal; }
+.wx-five em { color: var(--blue); font-style: normal; text-align: right; }
+.wx-five small { grid-column: 1 / -1; color: #6f6a5a; }
+.wx-five-track {
+  position: relative;
+  height: 8px;
+  border-radius: 4px;
+  background: #1d2118;
+  box-shadow: inset 0 1px 2px #0008;
+}
+.wx-five-track span {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: var(--left, 0%);
+  width: var(--width, 100%);
+  border-radius: 4px;
+  background: linear-gradient(90deg, #71a9b8, #f2bd4b);
+  box-shadow: 0 0 8px #f2bd4b33;
+}
+
+@media (max-width: 720px) {
+  .wx-hero { grid-template-columns: auto 1fr; }
+  .wx-hero-facts { grid-column: 1 / -1; justify-items: start; }
+  .wx-full-hero { grid-template-columns: auto 1fr; }
+  .wx-sun { grid-column: 1 / -1; grid-template-columns: 1fr 1fr; display: grid; }
+  .wx-five article { grid-template-columns: 80px 30px 34px 1fr 34px; }
+  .wx-five em { display: none; }
+}

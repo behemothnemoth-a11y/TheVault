@@ -1,0 +1,33 @@
+/* Final Games visual tuning. This file only changes presentation and ordering. */
+.atomic-wing--games .games2-actions [data-games-play-next] {
+  order: 1;
+}
+
+.atomic-wing--games .games2-actions [data-game-add] {
+  order: 2;
+}
+
+.atomic-wing--games .games2-actions [data-games-import-review] {
+  order: 3;
+}
+
+.atomic-wing--games .games2-actions [data-games-refresh-metadata] {
+  order: 4;
+}
+
+.atomic-wing--games .games2-actions [data-games-pause-settings] {
+  order: 5;
+}
+
+/* Wide desktop shelves read as a dense archive wall rather than oversized cards. */
+@media (min-width: 1800px) {
+  .atomic-wing--games .games2-grid {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1451px) and (max-width: 1799px) {
+  .atomic-wing--games .games2-grid {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+}

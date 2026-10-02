@@ -1,0 +1,40 @@
+/* The shared room search field, carried in the statusbar for wings that filter
+   their contents but never drew a box of their own. */
+
+/* The statusbar is a three-column grid (title / section / controls). The search
+   field is a fourth child, so the grid has to make room for it or the controls
+   row wraps underneath and collides with the title. */
+.atomic-statusbar:has(.wing-search) {
+  grid-template-columns: auto minmax(0, 1fr) auto minmax(0, 1fr);
+}
+
+.atomic-statusbar .wing-search {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding-right: 14px;
+}
+.atomic-statusbar .wing-search span {
+  color: #91c476;
+  font-size: 12px;
+  letter-spacing: .04em;
+}
+.atomic-statusbar .wing-search input {
+  min-width: 170px;
+  min-height: 32px;
+  padding: 6px 10px;
+  border: 1px solid #6b5730;
+  background: #14160e;
+  color: #ded3b4;
+  font-size: 12px;
+}
+.atomic-statusbar .wing-search input:focus {
+  outline: none;
+  border-color: var(--amber);
+  background: #191c11;
+}
+.atomic-statusbar .wing-search input::placeholder { color: #6f6a5a; }
+
+@media (max-width: 1100px) {
+  .atomic-statusbar .wing-search input { min-width: 140px; }
+}

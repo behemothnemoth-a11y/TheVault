@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#17130f">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: file: https:; media-src 'self' file:; connect-src 'self'; object-src 'none'; base-uri 'none'; form-action 'self'">
+  <title>The Vault: Reconstruction</title>
+  <link rel="stylesheet" href="./css/base.css?v=20260912-v1">
+  <link rel="stylesheet" href="./css/layout.css?v=20260912-v1">
+  <link rel="stylesheet" href="./css/components.css?v=20260902-reliability-v6">
+  <link rel="stylesheet" href="./css/tvPlayer.css?v=20260831-player-polish-v5">
+  <link rel="stylesheet" href="./css/tvSections.css?v=20260830-tv-sections-v1">
+  <link rel="stylesheet" href="./css/timeTotals.css?v=20260830-time-totals-v1">
+  <link rel="stylesheet" href="./css/cardRemoval.css?v=20260830-card-removal-v1">
+  <link rel="stylesheet" href="./css/library.css?v=20260912-v1">
+  <link rel="stylesheet" href="./css/daily-desk.css?v=20260912-v1">
+  <link rel="stylesheet" href="./css/phase-three.css?v=20260912-v1">
+  <link rel="stylesheet" href="./css/ui-polish.css?v=20260912-v1">
+  <link rel="stylesheet" href="./css/life-dashboard.css?v=20260912-v1">
+  <link rel="stylesheet" href="./css/games.css?v=20260912-v1">
+  <link rel="stylesheet" href="./css/atomic-home.css?v=20260826-atomic-wings">
+  <link rel="stylesheet" href="./css/wing-placeholders.css?v=20260828-consistency-v2">
+  <link rel="stylesheet" href="./css/music.css?v=20261001-album-pages-v1">
+  <link rel="stylesheet" href="./css/musicImport.css?v=20260830-music-v2">
+  <link rel="stylesheet" href="./css/youtubeHistory.css?v=20260830-v1">
+  <link rel="stylesheet" data-comics-manga-styles href="./css/comics-manga.css?v=20260827-local-volume-art-v7">
+  <link rel="stylesheet" href="./css/comics-manga-v2.css?v=20260831-v2">
+  <link rel="stylesheet" href="./css/windowScaling.css?v=20260830-window-scaling-v1">
+  <link rel="stylesheet" href="./css/games-v2-detail.css?v=20260901-v2">
+  <link rel="stylesheet" href="./css/games-v2-readability.css?v=20260901-v2">
+  <link rel="stylesheet" href="./css/games-v3.css?v=20260901-v1">
+  <link rel="stylesheet" href="./css/games-v3-polish.css?v=20260901-v1">
+  <link rel="stylesheet" href="./css/games-v3-polish-tuning.css?v=20260901-v1">
+<link rel="stylesheet" href="./css/games-v3-home.css?v=20260912-v1">
+<link rel="stylesheet" href="./css/projects.css?v=20260912-v1">
+<link rel="stylesheet" href="./css/home-control.css?v=20260912-v1">
+<link rel="stylesheet" href="./css/home-archive-cards.css?v=20260913-v3">
+<link rel="stylesheet" href="./css/food-room.css?v=20260913-v5">
+<link rel="stylesheet" href="./css/household.css?v=20260913-v1">
+<link rel="stylesheet" href="./css/master-suggestions.css?v=20260912-v1">
+<link rel="stylesheet" href="./css/wing-search.css?v=20260912-v1">
+<link rel="stylesheet" href="./css/music-shelf.css?v=20260912-v1">
+<link rel="stylesheet" href="./css/calendar-add.css?v=20260912-v1">
+  <link rel="stylesheet" href="./css/vault-industrial-v2.css?v=20260831-v2">
+  <link rel="stylesheet" href="./css/games-reference-exact.css?v=20260831-approved-v1">
+  <link rel="stylesheet" href="./css/writing.css?v=20260905-writing-v1">
+  <link rel="stylesheet" href="./css/writing-controls.css?v=20260906-v1">
+  <link rel="stylesheet" href="./css/calendar.css?v=20260906-v1">
+<link rel="stylesheet" href="./css/weather-card.css?v=20260912-v1">
+<link rel="stylesheet" href="./css/trivia-game.css?v=20260912-v1">
+<link rel="stylesheet" href="./css/studio.css?v=20260913-studio-v1">
+<link rel="stylesheet" href="./css/readable-type.css?v=20260912-v1">
+<link rel="stylesheet" href="./css/desktop-pointer.css?v=20260926-pointer-v2">
+<link rel="stylesheet" href="./css/home-cinema.css?v=20261001-home-final-v2">
+<link rel="stylesheet" href="./css/home-now.css?v=20261001-home-final-v2">
+<link rel="stylesheet" href="./css/missing-file-review.css?v=20261001-v1">
+</head>
+<body class="atomic-shell-active">
+  <a class="skip-link" href="#view">Skip to archive content</a>
+  <div class="scanlines" aria-hidden="true"></div>
+  <div id="vault-runtime-anchors" hidden aria-hidden="true">
+    <span id="view-code">VAULT://HOME</span>
+    <span id="view-title">Archive Atrium</span>
+    <span id="archive-status">ARCHIVE ONLINE</span>
+    <span id="schema-version">1</span>
+    <span id="event-count">0</span>
+    <span id="level-chip">01</span>
+    <section id="observation-strip"></section>
+    <input id="global-search" type="search" autocomplete="off" tabindex="-1">
+    <button id="palette-button" type="button" tabindex="-1"></button>
+    <button id="discovery-button" type="button" tabindex="-1"></button>
+  </div>
+  <main id="view" class="view" tabindex="-1"></main>
+
+  <div id="toast-region" class="toast-region" aria-live="polite"></div>
+  <div id="modal-root"></div>
+  <div id="palette-root"></div>
+  <input id="import-input" type="file" accept="application/json" aria-label="Import Vault JSON archive" hidden>
+  <script src="./js/startupFallback.js?v=20260828-startup-safety-v1"></script>
+    <script src="./vendor/hls.min.js?v=1.6.13"></script>
+    <script type="module" src="./js/app.js?v=20261001-routing-pagination-v1"></script>
+</body>
+</html>

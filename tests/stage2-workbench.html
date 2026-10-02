@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><title>Vault Stage 2 Workbench Test</title></head>
+<body>
+  <div id="boot"></div><button class="brand" type="button">THE VAULT</button><nav id="main-nav"></nav>
+  <input id="global-search"><div id="view-code"></div><div id="view-title"></div><div id="view"></div>
+  <div id="schema-version"></div><div id="event-count"></div><div id="level-chip"></div><div id="observation-strip"></div>
+  <button id="palette-button"></button><button id="discovery-button"></button><div id="toast-region"></div>
+  <div id="modal-root"></div><div id="palette-root"></div><input id="import-input" type="file">
+  <pre id="test-result">RUNNING</pre>
+  <script type="module">
+    const output = document.querySelector("#test-result");
+    const report = value => {
+      const text = typeof value === "string" ? value : JSON.stringify(value);
+      output.textContent = text;
+      localStorage.setItem("vault_stage2_workbench_result", text);
+    };
+    const pause = (milliseconds = 100) => new Promise(resolve => setTimeout(resolve, milliseconds));
+    window.addEventListener("error", event => report(`ERROR\n${event.message}\n${event.filename}:${event.lineno}:${event.colno}`));
+    window.addEventListener("unhandledrejection", event => report(`REJECTION\n${event.reason?.stack || event.reason}`));
+    try {
+      await import("../js/app.js");
+      const store = await import("../js/core/store.js");
+      const healthSystem = await import("../js/systems/health.js");
+      const reviewSystem = await import("../js/systems/reviewQueue.js");
+      const beforeSnapshots = await store.getArchiveSnapshots();
+
+      document.querySelector('[data-route="workbench"]').click();
+      await pause(250);
+      const initial = {
+        title: document.querySelector("#view-title").textContent,
+        records: document.querySelectorAll("[data-workbench-edit]").length,
+        filters: document.querySelectorAll("[data-workbench-filter]").length,
+        reviewRows: document.querySelectorAll("[data-workbench-review-select]").length,
+        schema: store.getState().schemaVersion,
+        stage2: Boolean(store.getState().metadata.stage2?.workbenchEnabled)
+      };
+
+      const targetButton = document.querySelector("[data-workbench-edit]");
+      const targetId = targetButton.dataset.workbenchEdit;
+      const originalTitle = store.getState().items[targetId].title;
+      targetButton.click();
+      await pause();
+      const modal = document.querySelector("#modal-root .modal");
+      modal.querySelector("[data-wb-title]").value = `${originalTitle} [STAGE 2 TEST]`;
+      modal.querySelector('[data-action="0"]').click();
+      await pause(500);
+      const afterEdit = store.getState();
+      const change = afterEdit.metadata.stage2.changeLog.at(-1);
+      const edit = {
+        titleChanged: afterEdit.items[targetId].title.endsWith("[STAGE 2 TEST]"),
+        immutableId: afterEdit.items[targetId].id === targetId,
+        changeRecorded: change?.itemId === targetId && change?.status === "applied"
+      };
+
+      document.querySelector(`[data-workbench-undo="${change.id}"]`).click();
+      await pause(500);
+      edit.undone = store.getState().items[targetId].title === originalTitle &&
+        store.getState().metadata.stage2.changeLog.find(entry => entry.id === change.id)?.status === "undone";
+
+      const checkbox = document.querySelector("[data-workbench-review-select]");
+      const reviewId = checkbox.dataset.workbenchReviewSelect;
+      const reviewItem = reviewSystem.getReviewQueue().find(item => item.id === reviewId);
+      const action = reviewItem.kind === "semantic_conflict" ? "keep_original" :
+        reviewItem.kind === "scanner_only_episode" ? "link_scanner" : "defer";
+      checkbox.checked = true;
+      checkbox.dispatchEvent(new Event("change", { bubbles: true }));
+      await pause();
+      document.querySelector(`[data-workbench-batch="${action}"]`).click();
+      await pause(1500);
+      await store.flushPersistence();
+      const afterBatch = store.getState();
+      const afterSnapshots = await store.getArchiveSnapshots();
+      const batch = {
+        action,
+        decisionStatus: afterBatch.metadata.reviewQueue.items.find(item => item.id === reviewId)?.status,
+        recorded: afterBatch.metadata.stage2.reviewBatches.at(-1)?.reviewIds.includes(reviewId),
+        protectedSnapshotAdded: afterSnapshots.length > beforeSnapshots.length
+      };
+
+      const persisted = await (await import("../js/core/database.js")).readPrimaryState();
+      const health = healthSystem.runHealthCheck();
+      report({
+        result: "ok",
+        initial,
+        edit,
+        batch,
+        persistence: {
+          schema: persisted.schemaVersion,
+          undoneChangePersisted: persisted.metadata.stage2.changeLog.find(entry => entry.id === change.id)?.status === "undone",
+          batchPersisted: persisted.metadata.stage2.reviewBatches.at(-1)?.reviewIds.includes(reviewId)
+        },
+        health: {
+          ok: health.ok,
+          issueCount: health.issues.length,
+          sampleIssues: health.issues.slice(0, 10),
+          items: health.checked,
+          episodes: health.episodes,
+          linkedEpisodes: health.linkedEpisodes,
+          reviewItems: health.reviewItems,
+          changes: health.changes,
+          reviewBatches: health.reviewBatches
+        }
+      });
+    } catch (error) {
+      report(`TEST ERROR\n${error.stack || error}`);
+    }
+  </script>
+</body>
+</html>

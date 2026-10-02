@@ -1,0 +1,39 @@
+/* What the master scan sorted but would not file on its own. */
+
+.master-suggestions { display: grid; gap: 14px; max-height: 62vh; overflow-y: auto; }
+.master-suggestions section { border: 1px solid #504327; background: #11130d; }
+.master-suggestions header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 10px 12px;
+  border-bottom: 1px solid #3c3526;
+}
+.master-suggestions header b { color: var(--amber); font-size: 13px; }
+.master-suggestions header button {
+  min-height: 32px;
+  padding: 6px 10px;
+  border: 1px solid #6b5730;
+  background: #17190f;
+  color: #c1b58f;
+  font-size: 12px;
+  cursor: pointer;
+}
+.master-suggestions header button:hover { background: #302713; color: var(--amber); }
+.master-suggestions ul { list-style: none; margin: 0; padding: 0; }
+.master-suggestions li {
+  display: grid;
+  gap: 3px;
+  padding: 9px 12px;
+  border-bottom: 1px solid #241f16;
+}
+.master-suggestions li:last-child { border-bottom: 0; }
+.master-suggestions li b { color: #ded3b4; font-size: 13px; }
+.master-suggestions li small { color: #9b9177; font-size: 12px; }
+.master-suggestions li code {
+  color: #6f6a5a;
+  font-size: 11px;
+  word-break: break-all;
+}
+.master-suggestions p { padding: 8px 12px; color: #8d8471; font-size: 12px; }

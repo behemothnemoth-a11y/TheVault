@@ -1,0 +1,3 @@
+.music-command-actions{display:flex;align-items:center;gap:12px;margin-top:16px}
+.music-command-actions small{color:#7e765f;font:calc(7px * var(--atomic-type-scale)) var(--pixel)}
+.spotify-setup{display:grid;gap:14px}.spotify-setup ol{display:grid;gap:8px;margin:0;padding-left:24px;color:#c8bea0}.spotify-setup code{display:block;margin-top:6px;padding:9px;border:1px solid #66572e;background:#0d0f0a;color:#9fc75c;user-select:all}.spotify-setup label{display:grid;gap:6px;color:#c9aa5c}.spotify-setup input{padding:10px;border:1px solid #66572e;background:#0d0f0a;color:#ded4b5}.spotify-setup small{color:#918972}

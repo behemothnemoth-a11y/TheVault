@@ -1,0 +1,57 @@
+:root {
+  --ink: #17130f;
+  --ink-2: #211c16;
+  --panel: #2b251d;
+  --panel-2: #342d23;
+  --paper: #d8ceb6;
+  --paper-dim: #938b78;
+  --amber: #f2bd4b;
+  --amber-2: #a86f20;
+  --green: #7fbf6a;
+  --red: #d76a54;
+  --blue: #71a9b8;
+  --border: #070605;
+  --shadow: #080705aa;
+  --pixel: Impact, "Arial Black", system-ui, sans-serif;
+  --mono: Consolas, "Cascadia Mono", "Courier New", monospace;
+}
+* { box-sizing: border-box; }
+html { min-height: 100%; background: var(--ink); }
+body {
+  min-height: 100vh; margin: 0; color: var(--paper); font-family: var(--mono);
+  background:
+    radial-gradient(circle at 60% -10%, #59411933, transparent 35rem),
+    repeating-conic-gradient(#17130f 0 25%, #1b1712 0 50%) 0 0 / 24px 24px;
+}
+button, input, textarea, select { font: inherit; }
+button { color: inherit; }
+button:focus-visible, input:focus-visible, textarea:focus-visible, select:focus-visible, a:focus-visible {
+  outline: 2px solid var(--amber); outline-offset: 3px;
+}
+h1, h2, h3, p { margin-top: 0; }
+.skip-link {
+  position: fixed; top: 8px; left: 8px; z-index: 1000; padding: 10px 12px;
+  color: var(--ink); background: var(--amber); font-weight: 700;
+  transform: translateY(-160%);
+}
+.skip-link:focus { transform: translateY(0); }
+a { color: var(--amber); }
+kbd {
+  border: 1px solid #6e6555; background: #17130f; padding: 2px 5px;
+  color: var(--paper-dim); box-shadow: inset 0 -1px #000; font: 10px var(--mono);
+}
+.scanlines {
+  position: fixed; inset: 0; pointer-events: none; z-index: 100;
+  background: repeating-linear-gradient(0deg, #0000 0 3px, #00000013 3px 4px);
+  mix-blend-mode: multiply;
+}
+::-webkit-scrollbar { width: 12px; height: 12px; }
+::-webkit-scrollbar-track { background: var(--ink); }
+::-webkit-scrollbar-thumb { background: #5c513f; border: 3px solid var(--ink); }
+.muted { color: var(--paper-dim); }
+.amber { color: var(--amber); }
+.danger { color: var(--red); }
+.pixel { font-family: var(--pixel); }
+.blink { animation: blink 1s steps(1) infinite; }
+@keyframes blink { 50% { opacity: 0; } }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none!important; transition: none!important; } }

@@ -1,0 +1,174 @@
+/* The four archive cards on HOME: what the time is for, what is part-finished,
+   what was recorded today, and what has gone cold. Same terminal furniture as
+   the control room underneath them. */
+
+.home-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 10px;
+  /* Grid items default to min-width:auto, which lets a long show title push the
+     whole row wider than the page instead of wrapping inside its card. */
+  min-width: 0;
+}
+
+.home-card {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-width: 0;
+  padding: 14px 16px;
+  border: 1px solid #504327;
+  background: #11130d;
+  box-shadow: 3px 4px #050503;
+}
+
+.home-card > header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #2e2a1c;
+}
+.home-card > header .eyebrow { color: var(--amber); letter-spacing: 0.08em; }
+.home-card > header small { color: #8d8471; white-space: nowrap; }
+
+.home-card__lead { color: #ded3b4; line-height: 1.45; overflow-wrap: anywhere; }
+.home-card__lead b { color: var(--amber); }
+.home-card__note { color: #9a917b; line-height: 1.45; }
+.home-card__quiet { color: #7d7663; font-style: italic; }
+
+.home-card__list { display: grid; gap: 6px; list-style: none; margin: 0; padding: 0; }
+.home-card__list button {
+  display: grid;
+  gap: 3px;
+  width: 100%;
+  min-width: 0;
+  padding: 8px 10px;
+  border: 1px solid #3b3322;
+  background: #0d100a;
+  text-align: left;
+  cursor: pointer;
+  color: inherit;
+}
+.home-card__list button:hover,
+.home-card__list button:focus-visible { border-color: var(--amber); background: #151a0f; }
+.home-card__list b { color: #ded3b4; overflow-wrap: anywhere; }
+.home-card__list span { color: #8d8471; text-transform: uppercase; letter-spacing: 0.05em; }
+
+.home-card__log { display: grid; gap: 7px; list-style: none; margin: 0; padding: 0; }
+.home-card__log li {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: baseline;
+  gap: 4px 10px;
+  min-width: 0;
+}
+.home-card__log b { grid-column: 2; color: #ded3b4; overflow-wrap: anywhere; }
+.home-card__log span:not(.home-card__time) { grid-column: 2; color: #8d8471; overflow-wrap: anywhere; }
+.home-card__time { grid-row: span 2; color: var(--amber); white-space: nowrap; }
+
+.home-card__open {
+  align-self: start;
+  margin-top: auto;
+  padding: 7px 14px;
+  border: 1px solid #504327;
+  background: #0d100a;
+  color: var(--amber);
+  letter-spacing: 0.08em;
+  cursor: pointer;
+}
+.home-card__open:hover, .home-card__open:focus-visible { border-color: var(--amber); background: #151a0f; }
+
+/* SKY TONIGHT and the small daily curios. */
+
+.sky-verdict { border-left: 3px solid #3b3322; padding-left: 10px; }
+.sky-verdict.is-alert { border-left-color: #7fc46a; color: #b6e39f; }
+.sky-verdict.is-good { border-left-color: var(--amber); }
+.sky-verdict.is-quiet { border-left-color: #3b3322; color: #8d8471; }
+
+.sky-facts { display: grid; gap: 4px; list-style: none; margin: 0; padding: 0; }
+.sky-facts li { color: #9a917b; line-height: 1.4; overflow-wrap: anywhere; }
+
+/* The northward profile: aurora is never overhead at this latitude, so the
+   honest picture is how the probability climbs as you look further north. */
+.sky-ladder { display: grid; gap: 3px; list-style: none; margin: 0; padding: 0; }
+.sky-ladder li { display: grid; grid-template-columns: 46px 1fr 40px; align-items: center; gap: 8px; }
+.sky-ladder span { color: #8d8471; }
+.sky-ladder b { color: var(--amber); text-align: right; }
+.sky-ladder i {
+  display: block;
+  height: 8px;
+  background: linear-gradient(to right, #7fc46a var(--fill), #241f14 var(--fill));
+  border: 1px solid #2e2a1c;
+}
+
+.curio-image {
+  width: 100%;
+  max-height: 190px;
+  object-fit: cover;
+  border: 1px solid #2e2a1c;
+  background: #0a0c07;
+}
+.curio-image.xkcd { object-fit: contain; background: #d8d2bd; padding: 6px; }
+
+/* Long explanations are trimmed rather than allowed to set the row height. */
+.curio-clamp {
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.countdown-list { display: grid; gap: 5px; list-style: none; margin: 0; padding: 0; }
+.countdown-list li {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  align-items: baseline;
+  gap: 8px;
+  min-width: 0;
+}
+.countdown-list b { color: #ded3b4; overflow-wrap: anywhere; }
+.countdown-list span { color: var(--amber); white-space: nowrap; }
+.countdown-list li.past b, .countdown-list li.past span { color: #6f6959; }
+.countdown-list button {
+  border: 0;
+  background: none;
+  color: #6f6959;
+  cursor: pointer;
+  padding: 0 2px;
+  font-size: 15px;
+}
+.countdown-list button:hover, .countdown-list button:focus-visible { color: #c9853a; }
+
+.card-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: auto; }
+.home-card__open.ghost { color: #8d8471; }
+.home-card__open.ghost:hover, .home-card__open.ghost:focus-visible { color: var(--amber); }
+
+.streak-count b { font-size: 1.9em; color: var(--amber); line-height: 1; }
+
+.attention-list { display: grid; gap: 5px; list-style: none; margin: 0; padding: 0; }
+.attention-list li {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: baseline;
+  gap: 10px;
+  min-width: 0;
+}
+.attention-list b { color: var(--amber); text-align: right; min-width: 3.5em; }
+.attention-list span { color: #9a917b; overflow-wrap: anywhere; }
+
+.food-ingredients {
+  display: grid;
+  gap: 2px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  max-height: 140px;
+  overflow-y: auto;
+}
+.food-ingredients li { color: #9a917b; overflow-wrap: anywhere; }
+
+@media (max-width: 620px) {
+  .home-cards { grid-template-columns: 1fr; }
+}

@@ -1,0 +1,232 @@
+/* The weather card, and the full picture behind it. */
+
+.home-weather-open {
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: none;
+  text-align: left;
+  cursor: pointer;
+}
+/* Five days, not four — the forecast has always carried five. */
+.home-weather .home-weather-days { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+@media (max-width: 1200px) {
+  .home-weather .home-weather-days { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+
+.home-weather-hint {
+  display: block;
+  margin-top: 8px;
+  color: #91c476;
+}
+.home-weather-open:hover .home-weather-hint { color: var(--amber); }
+
+.home-weather-alert {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  margin-bottom: 10px;
+  padding: 9px 12px;
+  border: 1px solid #c9853a;
+  background: #2b1d0d;
+  color: #f0c274;
+  font-size: 12px;
+  cursor: pointer;
+  text-align: left;
+}
+.home-weather-alert i {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #e0913c;
+  box-shadow: 0 0 9px #e0913c;
+  flex: 0 0 auto;
+}
+
+/* ---- the opened card ---- */
+
+/* Grid items default to min-width:auto, so the twelve-cell hour strip was forcing
+   the whole card wider than the dialog and pushing the controls out of view. */
+.home-weather-full {
+  display: grid;
+  gap: 16px;
+  max-height: 68vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+  min-width: 0;
+}
+.home-weather-full > * { min-width: 0; }
+.home-hour-strip, .home-rain-strip { max-width: 100%; }
+.home-weather-full h3 { color: var(--amber); font-size: 13px; margin-bottom: 8px; }
+.home-weather-block { border-top: 1px solid #3c3526; padding-top: 12px; }
+
+.home-weather-alerts { display: grid; gap: 8px; }
+.home-weather-alerts article { padding: 10px 12px; border: 1px solid #c9853a; background: #2b1d0d; }
+.home-weather-alerts b { color: #f0c274; font-size: 13px; }
+.home-weather-alerts small { display: block; margin: 3px 0 6px; color: #c9a06a; font-size: 12px; }
+.home-weather-alerts p { color: #d8c9a2; font-size: 12px; line-height: 1.5; }
+
+.home-weather-headline { display: flex; align-items: center; gap: 18px; }
+.home-weather-headline > b { color: var(--amber); font-size: 44px; line-height: 1; }
+.home-weather-headline strong { display: block; color: #ded3b4; font-size: 14px; }
+.home-weather-headline small { display: block; margin-top: 4px; color: #9b9177; font-size: 12px; }
+
+.home-weather-cities { display: grid; gap: 8px; }
+.home-weather-cities > span { color: #91c476; font-size: 12px; }
+.home-weather-cities > div { display: flex; gap: 6px; flex-wrap: wrap; }
+.home-weather-cities button {
+  min-height: 32px;
+  padding: 6px 10px;
+  border: 1px solid #6b5730;
+  background: #17190f;
+  color: #c1b58f;
+  font-size: 12px;
+  cursor: pointer;
+}
+.home-weather-cities button.active { border-color: var(--amber); color: var(--amber); }
+.home-weather-add { display: flex; gap: 6px; align-items: stretch; }
+.home-weather-add input {
+  flex: 1;
+  min-width: 0;
+  min-height: 34px;
+  padding: 6px 10px;
+  border: 1px solid #6b5730;
+  background: #14160e;
+  color: #ded3b4;
+}
+.home-weather-add button {
+  flex: 0 0 auto;
+  min-width: 88px;
+  min-height: 34px;
+  padding: 6px 14px;
+  border: 1px solid var(--amber);
+  background: #2b2415;
+  color: var(--amber);
+  cursor: pointer;
+}
+.home-weather-add button:hover { background: var(--amber); color: #171109; }
+.home-weather-results { display: grid; gap: 4px; }
+.home-weather-results small { color: #8d8471; font-size: 12px; }
+.home-weather-remove { justify-self: start; color: #c98a6a !important; border-color: #6b4230 !important; }
+
+.home-weather-sentence { color: #ded3b4; font-size: 13px; margin-bottom: 10px; }
+
+/* Next three hours, in fifteen-minute steps. */
+.home-rain-strip { display: grid; grid-template-columns: repeat(12, 1fr); gap: 3px; align-items: end; }
+.home-rain-strip span { display: grid; gap: 4px; justify-items: center; }
+.home-rain-strip i {
+  display: block;
+  width: 100%;
+  height: 54px;
+  background: linear-gradient(to top, #4a7fb5 var(--fill, 0%), #1a1d14 var(--fill, 0%));
+  border: 1px solid #2c3a45;
+}
+.home-rain-strip small { color: #8d8471; font-size: 11px; }
+
+/* Today, hour by hour. */
+.home-hour-strip { display: flex; gap: 6px; overflow-x: auto; padding-bottom: 4px; }
+.home-hour-strip span {
+  display: grid;
+  gap: 3px;
+  justify-items: center;
+  min-width: 62px;
+  padding: 8px 4px;
+  border: 1px solid #3c3526;
+  background: #11130d;
+}
+.home-hour-strip small { color: #8d8471; font-size: 11px; }
+.home-hour-strip b { color: #ded3b4; font-size: 14px; }
+.home-hour-strip em { color: #6f9ec4; font-size: 11px; font-style: normal; }
+
+/* Five days. */
+.home-weather-five { display: grid; gap: 6px; }
+.home-weather-five article {
+  display: grid;
+  grid-template-columns: 110px 1fr auto;
+  gap: 10px;
+  align-items: center;
+  padding: 9px 12px;
+  border: 1px solid #3c3526;
+  background: #11130d;
+}
+.home-weather-five b { color: #ded3b4; font-size: 12px; }
+.home-weather-five span { color: #9b9177; font-size: 12px; }
+.home-weather-five em { color: var(--amber); font-size: 13px; font-style: normal; }
+.home-weather-five small { grid-column: 1 / -1; color: #6f6a5a; font-size: 11px; }
+
+/* Radar: stacked frames, one visible at a time. */
+.home-radar-stage {
+  position: relative;
+  width: 256px;
+  height: 256px;
+  margin: 0 auto;
+  border: 1px solid #3c3526;
+  background: #0a0d08 url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='256' height='256'><rect width='256' height='256' fill='%230d100a'/><circle cx='128' cy='128' r='40' fill='none' stroke='%23253021'/><circle cx='128' cy='128' r='80' fill='none' stroke='%23253021'/><circle cx='128' cy='128' r='120' fill='none' stroke='%23253021'/></svg>") center/cover no-repeat;
+}
+.home-radar-frame {
+  position: absolute;
+  inset: 0;
+  width: 256px;
+  height: 256px;
+  opacity: 0;
+  transition: opacity .18s linear;
+}
+.home-radar-frame.visible { opacity: 1; }
+/* Predicted frames are painted here, over the same stage as the radar tiles. */
+.home-radar-forecast {
+  position: absolute;
+  inset: 0;
+  width: 256px;
+  height: 256px;
+}
+.home-radar-phase {
+  position: absolute;
+  right: 6px;
+  top: 6px;
+  padding: 2px 7px;
+  background: #0a0d08cc;
+  border: 1px solid #4a4330;
+  color: #91c476;
+  letter-spacing: .06em;
+}
+.home-radar-phase.predicted { border-color: var(--amber); color: var(--amber); }
+
+.home-radar-clock {
+  position: absolute;
+  left: 6px;
+  bottom: 6px;
+  padding: 2px 6px;
+  background: #0a0d08cc;
+  color: var(--amber);
+  font-size: 11px;
+}
+.home-radar-controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 8px;
+  text-align: center;
+}
+.home-radar-controls button {
+  min-height: 30px;
+  padding: 5px 14px;
+  border: 1px solid #6b5730;
+  background: #17190f;
+  color: #c1b58f;
+  font-size: 12px;
+  cursor: pointer;
+}
+.home-radar-controls small { color: #8d8471; font-size: 11px; }
+.home-radar-empty { color: #8d8471; font-size: 12px; }
+/* Radar tiles are transparent where there is no precipitation, so a clear sky
+   shows the range rings and nothing else. Say so rather than looking broken. */
+.home-radar-note { margin-top: 6px; color: #6f6a5a; text-align: center; }
+
+@media (max-width: 700px) {
+  .home-weather-five article { grid-template-columns: 1fr auto; }
+  .home-rain-strip { grid-template-columns: repeat(6, 1fr); }
+}

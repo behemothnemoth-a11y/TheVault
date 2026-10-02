@@ -1,0 +1,292 @@
+/*
+  Vault industrial visual pass.
+  Presentation only: routes, tabs, controls, text, and data behavior stay unchanged.
+*/
+
+:root {
+  --vault-metal-dark: #090a07;
+  --vault-metal-mid: #27271c;
+  --vault-metal-high: #51482f;
+  --vault-brass: #a67b2c;
+  --vault-brass-light: #e2ad45;
+  --vault-screen-green: #83c74e;
+}
+
+body:has(#view > .atomic-wing),
+body:has(#view > .atomic-home) {
+  background:
+    radial-gradient(circle at 18% 10%, rgba(186, 135, 42, .08), transparent 28%),
+    repeating-linear-gradient(90deg, #11120d 0 2px, #0b0c09 2px 6px);
+}
+
+.atomic-home,
+.atomic-wing {
+  position: relative;
+  border: 3px solid #090a07;
+  outline: 2px solid #79643a;
+  outline-offset: -6px;
+  background:
+    radial-gradient(circle at 12px 12px, #b68a3e 0 2px, #332714 3px, transparent 5px),
+    radial-gradient(circle at calc(100% - 12px) 12px, #b68a3e 0 2px, #332714 3px, transparent 5px),
+    linear-gradient(90deg, #202118, #39362a 11%, #171913 13%, #171913 87%, #39362a 89%, #202118);
+  box-shadow:
+    inset 0 0 0 4px #16170f,
+    inset 0 0 0 6px #554a30,
+    inset 0 0 46px #000,
+    0 0 30px #000;
+}
+
+.atomic-rail {
+  border-right: 10px ridge #776542;
+  background:
+    radial-gradient(circle at 12px 20px, #c99c4a 0 2px, #3b2b14 3px, transparent 5px),
+    radial-gradient(circle at calc(100% - 14px) calc(100% - 22px), #c99c4a 0 2px, #3b2b14 3px, transparent 5px),
+    repeating-linear-gradient(0deg, rgba(255, 255, 255, .015) 0 1px, transparent 1px 4px),
+    linear-gradient(90deg, #181911, #4b4632 50%, #202119);
+  box-shadow:
+    inset 3px 0 #5a5036,
+    inset -7px 0 #10120c,
+    9px 0 0 #080906,
+    15px 0 24px rgba(0, 0, 0, .75);
+}
+
+.atomic-brand {
+  min-height: 108px;
+  grid-template-columns: 72px 1fr;
+  padding: 14px 10px;
+  border: 1px solid #0a0b07;
+  outline: 2px solid #75603a;
+  outline-offset: -5px;
+  border-radius: 2px;
+  background:
+    radial-gradient(circle at 33% 50%, rgba(215, 160, 50, .11), transparent 32%),
+    linear-gradient(#2d2b20, #15170f);
+  box-shadow: inset 0 0 22px #000, 4px 5px #090a07;
+}
+
+.atomic-brand span {
+  width: 64px;
+  height: 64px;
+  border: 6px double #17150d;
+  background: radial-gradient(circle at 35% 30%, #e0b550, #9c6c22 58%, #3e2a10 60%);
+  color: #17140c;
+  font-size: 34px;
+  box-shadow: 0 0 0 2px #9a7b3c, inset 3px 3px #f0ce75, inset -4px -4px #553711, 0 4px 10px #000;
+}
+
+.atomic-nav-bank > summary,
+.atomic-rail nav button {
+  border-radius: 1px;
+  border-color: #0d0e0a;
+  outline: 1px solid #55482f;
+  outline-offset: -3px;
+  background: linear-gradient(#343328, #181a13 52%, #24251b);
+  box-shadow: inset 2px 2px rgba(238, 214, 150, .14), inset -3px -3px #0d0e09, 3px 4px #0a0b07;
+}
+
+.atomic-rail nav button:hover {
+  background: linear-gradient(#4b4126, #201c12);
+  border-color: #c08b2d;
+}
+
+.atomic-rail nav button.active {
+  border-color: #d39a2c;
+  outline-color: #5c3810;
+  background:
+    radial-gradient(circle at 50% 100%, rgba(255, 191, 53, .42), transparent 70%),
+    linear-gradient(#dda53a, #8e5b18);
+  box-shadow: inset 3px 3px #f5cf72, inset -4px -4px #5a3610, 0 0 12px rgba(224, 151, 25, .34), 3px 4px #080906;
+}
+
+.atomic-console,
+.atomic-wing-console {
+  border: 10px ridge #5d5438;
+  background:
+    repeating-linear-gradient(0deg, rgba(255, 255, 255, .012) 0 1px, transparent 1px 4px),
+    radial-gradient(circle at 80% 3%, rgba(190, 137, 41, .1), transparent 24%),
+    linear-gradient(135deg, #24261c, #413c2c 45%, #1b1e16);
+  box-shadow: inset 0 0 0 3px #090b07, inset 0 0 0 5px #635538, inset 0 0 44px #000;
+}
+
+.atomic-statusbar {
+  min-height: 58px;
+  border: 1px solid #090b07;
+  outline: 2px solid #675535;
+  outline-offset: -5px;
+  border-radius: 1px;
+  background:
+    repeating-linear-gradient(0deg, rgba(97, 132, 70, .025) 0 1px, transparent 1px 3px),
+    linear-gradient(#11150e, #070a06);
+  box-shadow: inset 0 0 22px #000, 0 4px #090a07;
+}
+
+.atomic-screen,
+.atomic-wing-screen {
+  border: 4px solid #0b0d09;
+  outline: 2px solid #78623b;
+  outline-offset: -7px;
+  background:
+    repeating-linear-gradient(0deg, rgba(137, 190, 95, .025) 0 1px, transparent 1px 4px),
+    radial-gradient(circle at 30% 5%, rgba(112, 152, 78, .08), transparent 30%),
+    linear-gradient(#11160f, #080b07);
+  box-shadow: inset 0 0 46px #000, 0 0 0 2px #171911;
+}
+
+.atomic-wing-footer,
+.atomic-footer {
+  border-top: 8px ridge #766744;
+  background: linear-gradient(#343328, #181a13);
+  box-shadow: inset 0 3px rgba(240, 215, 145, .12), inset 0 -4px #0b0c08;
+}
+
+/* Games: make the reference's machinery and landscape archive shelves unmistakable. */
+.atomic-wing--games .games-v2 {
+  gap: 12px;
+  padding: 12px;
+  border: 2px solid #080906;
+  outline: 2px solid #6f5935;
+  outline-offset: -6px;
+  background:
+    radial-gradient(circle at 12px 12px, #c2923b 0 2px, #35250f 3px, transparent 5px),
+    radial-gradient(circle at calc(100% - 12px) 12px, #c2923b 0 2px, #35250f 3px, transparent 5px),
+    linear-gradient(135deg, #16180f, #090b07 55%, #14160e);
+}
+
+.atomic-wing--games .games2-nav,
+.atomic-wing--games .games2-actions,
+.atomic-wing--games .games2-current,
+.atomic-wing--games .games2-snapshots article,
+.atomic-wing--games .games2-panel,
+.atomic-wing--games .games2-sources {
+  border-width: 2px;
+  outline: 2px solid #14150e;
+  outline-offset: -5px;
+}
+
+.atomic-wing--games .games2-current {
+  min-height: 455px;
+  background:
+    linear-gradient(90deg, transparent 0 43%, rgba(230, 159, 39, .04) 43% 43.2%, transparent 43.2%),
+    radial-gradient(circle at 76% 30%, rgba(211, 148, 34, .18), transparent 34%),
+    linear-gradient(120deg, #080a06, #191a11);
+}
+
+.atomic-wing--games .games2-current__art {
+  min-height: 410px;
+  outline: 1px solid #b08336;
+  outline-offset: -5px;
+}
+
+.atomic-wing--games .games2-current__art img {
+  object-fit: cover;
+}
+
+.atomic-wing--games .games2-actions .button {
+  position: relative;
+  min-height: 58px;
+  padding-left: 18px;
+  border-width: 2px;
+  outline: 1px solid #11130d;
+  outline-offset: -5px;
+  letter-spacing: .04em;
+}
+
+.atomic-wing--games .games2-actions .button::after {
+  content: "";
+  position: absolute;
+  right: 9px;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #86c64e;
+  box-shadow: 0 0 8px rgba(120, 206, 69, .72);
+}
+
+.atomic-wing--games .games2-snapshots article {
+  min-height: 118px;
+  background:
+    radial-gradient(circle at 78% 52%, rgba(220, 155, 35, .12), transparent 34%),
+    linear-gradient(#202117, #0a0c08);
+}
+
+.atomic-wing--games .games2-snapshots b {
+  font-size: 32px !important;
+}
+
+.atomic-wing--games .games2-panel > header {
+  padding: 8px 10px 12px;
+  border-bottom: 3px double #7d6337;
+  background: linear-gradient(90deg, rgba(211, 151, 40, .07), transparent 45%);
+}
+
+.atomic-wing--games .games2-grid {
+  gap: 12px;
+}
+
+.atomic-wing--games .games2-card {
+  overflow: hidden;
+  border: 2px solid #554126;
+  outline: 1px solid #0a0b07;
+  outline-offset: -5px;
+  background: linear-gradient(#1c1e14, #090b07);
+  box-shadow: inset 0 0 0 2px #17180f, 4px 5px #050603;
+}
+
+.atomic-wing--games .games2-cover {
+  aspect-ratio: 16 / 10;
+  border-bottom: 3px ridge #7b6036;
+  background:
+    radial-gradient(circle at 50% 46%, #333426, #11130c 57%, #080906);
+}
+
+.atomic-wing--games .games2-cover img {
+  filter: saturate(.88) contrast(1.08) brightness(.88);
+}
+
+.atomic-wing--games .games2-card > div {
+  min-height: 112px;
+  background:
+    linear-gradient(90deg, rgba(128, 189, 77, .045), transparent 38%),
+    linear-gradient(#12150e, #090b07);
+}
+
+.atomic-wing--games .games2-card h3 {
+  min-height: 38px;
+  margin: 7px 0 5px;
+}
+
+.atomic-wing--games .games2-card button {
+  border-width: 1px;
+  outline: 1px solid #0a0b07;
+  outline-offset: -3px;
+}
+
+.atomic-wing--games .games2-card:hover {
+  transform: translateY(-3px);
+  border-color: #d0942d;
+  box-shadow: inset 0 0 0 2px #2e2617, 0 0 13px rgba(210, 143, 28, .25), 4px 6px #050603;
+}
+
+.atomic-wing--games .games2-sources article {
+  min-height: 74px;
+  padding-inline: 14px;
+  background: linear-gradient(90deg, rgba(102, 153, 67, .045), transparent 50%);
+}
+
+@media (min-width: 2000px) {
+  .atomic-wing--games .games2-grid {
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1650px) and (max-width: 1999px) {
+  .atomic-wing--games .games2-grid {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1350px) and (max-width: 1649px) {
+  .atomic-wing--games .games2-grid {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+}

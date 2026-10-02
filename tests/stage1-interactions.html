@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Vault Stage 1 Interaction Test</title>
+</head>
+<body>
+  <div id="boot"></div>
+  <button class="brand" type="button">THE VAULT</button>
+  <nav id="main-nav"></nav>
+  <input id="global-search">
+  <div id="view-code"></div>
+  <div id="view-title"></div>
+  <div id="view"></div>
+  <div id="schema-version"></div>
+  <div id="event-count"></div>
+  <div id="level-chip"></div>
+  <div id="observation-strip"></div>
+  <button id="palette-button"></button>
+  <button id="discovery-button"></button>
+  <div id="toast-region"></div>
+  <div id="modal-root"></div>
+  <div id="palette-root"></div>
+  <input id="import-input" type="file">
+  <pre id="test-result">RUNNING</pre>
+  <script type="module">
+    const output = document.querySelector("#test-result");
+    const report = value => {
+      const text = typeof value === "string" ? value : JSON.stringify(value);
+      output.textContent = text;
+      localStorage.setItem("vault_stage1_interaction_result", text);
+    };
+    const pause = (milliseconds = 50) => new Promise(resolve => setTimeout(resolve, milliseconds));
+    window.addEventListener("error", event => report(`ERROR\n${event.message}\n${event.filename}:${event.lineno}:${event.colno}`));
+    window.addEventListener("unhandledrejection", event => report(`REJECTION\n${event.reason?.stack || event.reason}`));
+
+    try {
+      await import("../js/app.js");
+      const store = await import("../js/core/store.js");
+      const { runHealthCheck } = await import("../js/systems/health.js");
+      const { getReviewQueue, resolveReviewItem } = await import("../js/systems/reviewQueue.js");
+
+      document.querySelector('[data-route="settings"]').click();
+      await pause();
+      const settingsText = document.querySelector("#view").textContent;
+      const settings = {
+        rendered: document.querySelector("#view-title").textContent === "Settings / Data",
+        indexedDbShown: /INDEXEDDB/i.test(settingsText),
+        snapshotControls: Boolean(document.querySelector("[data-snapshot-create]") && document.querySelector("[data-snapshot-manager]")),
+        linkedCountShown: /11,?941/.test(settingsText),
+        reviewCountShown: /894/.test(settingsText)
+      };
+
+      document.querySelector('[data-route="tv"]').click();
+      await pause();
+      const catalog = {
+        genreCards: document.querySelectorAll(".genre-card").length,
+        seriesRows: document.querySelectorAll("[data-open-series]").length,
+        reviewButton: Boolean(document.querySelector("[data-review-queue]"))
+      };
+      const linkedShow = Object.values(store.getState().items).find(item =>
+        item.wing === "tv" && Object.values(item.episodes || {}).some(episode => episode.sourcePath)
+      );
+      document.querySelector(`[data-open-series="${CSS.escape(linkedShow.id)}"]`).click();
+      await pause();
+      const firstEpisodeLink = document.querySelector('a.episode-main[href^="file:///"]');
+      const firstEpisodeEditor = document.querySelector("[data-edit-episode]");
+      const series = {
+        title: document.querySelector("#view-title").textContent,
+        episodeLinks: document.querySelectorAll('a.episode-main[href^="file:///"]').length,
+        episodeEditors: document.querySelectorAll("[data-edit-episode]").length,
+        encodedLocalFileLink: Boolean(firstEpisodeLink && !firstEpisodeLink.getAttribute("href").includes("\\")),
+        linkedPathExistsInState: Boolean(
+          Object.values(linkedShow.episodes || {}).find(episode => episode.sourcePath === decodeURI(firstEpisodeLink.href.replace("file:///", "").replaceAll("/", "\\")))
+        )
+      };
+      firstEpisodeEditor.click();
+      await pause();
+      series.editorOpened = Boolean(document.querySelector("#modal-root .modal [data-watched]"));
+      document.querySelector("#modal-root [data-close]")?.click();
+
+      document.querySelector('[data-route="tv"]').click();
+      await pause();
+      document.querySelector("[data-review-queue]").click();
+      await pause();
+      const review = {
+        rendered: document.querySelector("#view-title").textContent === "Drive Intake Review",
+        categories: document.querySelectorAll(".review-category").length,
+        visibleRecords: document.querySelectorAll(".review-record").length,
+        pendingBefore: getReviewQueue().filter(item => item.status === "pending").length
+      };
+
+      const beforeTitle = store.getState().profile.title;
+      const snapshot = await store.createArchiveSnapshot("Stage 1 isolated interaction test", {
+        kind: "test",
+        protected: true
+      });
+      const decisionTarget = getReviewQueue().find(item => item.status === "pending" && item.kind === "file_group");
+      resolveReviewItem(decisionTarget.id, "defer");
+      store.update(save => { save.profile.title = "STAGE 1 TEST MUTATION"; });
+      await store.flushPersistence();
+      const persisted = await (await import("../js/core/database.js")).readPrimaryState();
+      review.decisionPersisted = persisted.metadata.reviewQueue.items.find(item => item.id === decisionTarget.id)?.status === "deferred";
+      const mutationPersisted = persisted.profile.title === "STAGE 1 TEST MUTATION";
+      await store.restoreArchiveSnapshot(snapshot.id);
+      const restored = store.getState().profile.title === beforeTitle &&
+        store.getState().metadata.reviewQueue.items.find(item => item.id === decisionTarget.id)?.status === "pending";
+
+      const health = runHealthCheck();
+      const snapshots = await store.getArchiveSnapshots();
+      report({
+        result: "ok",
+        settings,
+        catalog,
+        series,
+        review,
+        persistence: {
+          mutationPersisted,
+          restored,
+          protectedSnapshots: snapshots.filter(item => item.protected).length,
+          totalSnapshots: snapshots.length
+        },
+        health: {
+          ok: health.ok,
+          checked: health.checked,
+          episodes: health.episodes,
+          linkedEpisodes: health.linkedEpisodes,
+          reviewItems: health.reviewItems,
+          issueCount: health.issues.length,
+          sampleIssues: health.issues.slice(0, 10)
+        }
+      });
+    } catch (error) {
+      report(`TEST ERROR\n${error.stack || error}`);
+    }
+  </script>
+</body>
+</html>

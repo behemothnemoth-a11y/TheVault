@@ -1,0 +1,69 @@
+# Secrets and local credentials
+.env
+.env.*
+!.env.example
+*.pem
+*.p12
+*.pfx
+*.key
+
+# Live/private Vault state and generated data
+data/private/
+data/repair/
+data/runtime/
+data/*.json
+backups/
+tmp/
+recovery/
+output/
+reports/
+
+# Generated/personal artwork and media-derived assets
+assets/artwork/
+
+# Legacy bundled app/runtime copies
+Legacy TV-Root/
+NVIDIA Corporation/
+
+# Browser/test runtime artifacts
+tests/edge-profile-*/
+tests/**/*.png
+tests/**/*.jpg
+tests/**/*.jpeg
+tests/**/*.webp
+tests/**/*.gif
+tests/*.json
+tests/*.txt
+tests/*-result.html
+tests/**/__pycache__/
+
+# Python/runtime caches
+__pycache__/
+**/__pycache__/
+.pytest_cache/
+*.py[cod]
+.venv/
+venv/
+env/
+
+# Build/package artifacts
+build/
+dist/
+*.zip
+*.7z
+*.rar
+*.tar
+*.gz
+
+# Logs / temporary files
+*.log
+*.tmp
+*.temp
+*.bak
+*.swp
+.DS_Store
+Thumbs.db
+
+# IDE/editor-local state
+.vscode/
+.idea/

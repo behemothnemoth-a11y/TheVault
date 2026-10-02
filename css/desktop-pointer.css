@@ -1,0 +1,32 @@
+/* Stable hit areas and immediate pointer feedback in the Qt desktop shell. */
+html.vault-desktop :is(button, a, [role="button"], .desk-card,
+  .life-domain-card, .tonight-choice, .games-card, .games2-card,
+  .games-ref-shelf-card, .daily-tv-card, .series-row, .season-poster-card) {
+  transition: none !important;
+}
+
+html.vault-desktop :is(button, .button, .desk-card, .life-domain-card,
+  .tonight-choice, .games-card, .games2-card, .games-ref-shelf-card,
+  .daily-tv-card, .series-row, .season-poster-card):hover {
+  transform: none !important;
+  filter: none !important;
+}
+
+/* Retain the static scanline texture without blending the whole viewport
+   again whenever a control highlights. Decorative layers never catch input. */
+html.vault-desktop .scanlines {
+  mix-blend-mode: normal;
+  pointer-events: none;
+}
+html.vault-desktop .topbar {
+  backdrop-filter: none;
+}
+
+/* The seven-pixel gutters are layout space, never a button hit target. */
+html.vault-desktop :is(.episode-list, .episode-list__row, .season-poster-grid) {
+  cursor: default;
+}
+html.vault-desktop :is(.episode-list__main, .episode-list__rate) {
+  margin: 0;
+  cursor: pointer;
+}

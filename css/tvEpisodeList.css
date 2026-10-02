@@ -1,0 +1,6 @@
+.episode-list__row{grid-template-columns:minmax(0,1fr) auto auto}
+.episode-list__ownership{display:grid;align-self:stretch;min-width:34px;place-items:center;border:1px solid #5c3932;background:#241310;color:#d96b55;font:700 calc(18px * var(--atomic-type-scale)) var(--font-mono)}
+.episode-list__main.missing{opacity:.62;cursor:default}
+.episode-list__main.missing strong{color:#d96b55;border-color:#5c3932}
+.episode-list__order{display:flex;align-items:center;gap:8px;margin-left:auto;color:#aaa181;font:calc(9px * var(--atomic-type-scale)) var(--pixel)}
+.episode-list__order select{min-height:32px;padding:5px 28px 5px 9px;border:1px solid #66572e;background:#11130d;color:#efb53c;font:inherit}

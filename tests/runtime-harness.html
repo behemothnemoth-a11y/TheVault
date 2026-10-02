@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Vault Runtime Harness</title>
+</head>
+<body>
+  <div id="boot"></div>
+  <button class="brand" type="button">THE VAULT</button>
+  <nav id="main-nav"></nav>
+  <input id="global-search">
+  <div id="view-code"></div>
+  <div id="view-title"></div>
+  <div id="view"></div>
+  <div id="schema-version"></div>
+  <div id="event-count"></div>
+  <div id="level-chip"></div>
+  <div id="observation-strip"></div>
+  <button id="palette-button"></button>
+  <button id="discovery-button"></button>
+  <div id="toast-region"></div>
+  <div id="modal-root"></div>
+  <div id="palette-root"></div>
+  <input id="import-input" type="file">
+  <pre id="test-result">RUNNING</pre>
+  <script>
+    const output = document.querySelector("#test-result");
+    const report = value => {
+      output.textContent = value;
+      localStorage.setItem("vault_runtime_test_result", value);
+    };
+    report("IMPORTING");
+    window.addEventListener("error", event => {
+      report(`ERROR\n${event.message}\n${event.filename}:${event.lineno}:${event.colno}`);
+    });
+    window.addEventListener("unhandledrejection", event => {
+      report(`REJECTION\n${event.reason?.stack || event.reason}`);
+    });
+    import("../js/app.js").then(async () => {
+      const store = await import("../js/core/store.js");
+      const state = store.getState();
+      const snapshots = await store.getArchiveSnapshots();
+      const episodes = Object.values(state.items)
+        .filter(item => item.wing === "tv")
+        .flatMap(item => Object.values(item.episodes || {}));
+      report(JSON.stringify({
+        result: "ok",
+        rendered: Boolean(document.querySelector("#view").textContent.trim()),
+        route: location.hash,
+        viewTitle: document.querySelector("#view-title").textContent,
+        schema: state.schemaVersion,
+        stage0: Boolean(state.metadata?.stage0Recovery),
+        storage: store.getStorageStatus().engine,
+        snapshots: snapshots.length,
+        items: Object.keys(state.items).length,
+        episodes: episodes.length,
+        linkedEpisodes: episodes.filter(episode => episode.sourcePath).length,
+        reviewItems: state.metadata?.reviewQueue?.items?.length || 0
+      }));
+    }).catch(error => {
+      report(`IMPORT ERROR\n${error.stack || error}`);
+    });
+  </script>
+</body>
+</html>

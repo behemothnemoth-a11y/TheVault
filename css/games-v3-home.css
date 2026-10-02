@@ -1,0 +1,95 @@
+/* Games HOME: what you're playing, with the library underneath in one card style.
+   Sections share .games2-card, so anything that already styles a card applies here. */
+
+/* The wing shell (games-reference-exact.css) is a fixed 2-column grid that places
+   its known children by row and column. Home is one child of that grid and lays its
+   own sections out inside. */
+/* Flex, not grid: the shell assigns grid-row/grid-column to panels by descendant
+   selector, which would stack every section of Home in one cell. Those properties
+   have no effect on a flex item, so the sections simply stack in order. */
+.atomic-wing--games .games3-home {
+  grid-column: 1;
+  grid-row: 2 / -1;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-width: 0;
+}
+.atomic-wing--games .games3-home > * { flex: 0 0 auto; min-width: 0; }
+.atomic-wing--games .games-v2:has(.games3-pause) .games3-home { grid-row: 3 / -1; }
+
+.games3-home-summary { margin-bottom: 4px; }
+
+.games3-home-section > header { margin-bottom: 4px; }
+.games3-home-section > header span {
+  color: #91c476;
+  font: 8px var(--pixel);
+  letter-spacing: .04em;
+}
+.games3-home-section[data-games-home-section="wishlist"] { opacity: .92; }
+.games3-home-section[data-games-home-section="wishlist"] .games2-cover { opacity: .78; }
+
+/* Playing now is the short list you act on, so its cards get more room. */
+.games3-home-section[data-games-home-section="playing"] .games2-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+.games3-card-large h3 { font-size: 12px; }
+
+.games3-play {
+  border-color: var(--amber) !important;
+  background: var(--amber) !important;
+  color: #171109 !important;
+}
+
+/* Series card: one cover, the run collapsed behind a disclosure. */
+.games3-series-card details { margin-top: 8px; }
+/* The wing holds a 12px desktop readability floor; summary is not covered by the
+   blanket rule in games-v2-readability.css, so it sets its own size. */
+.games3-series-card summary {
+  color: #c9b978;
+  font: 12px var(--pixel);
+  cursor: pointer;
+  padding: 6px 0;
+}
+.games3-series-card ul {
+  list-style: none;
+  margin: 6px 0 0;
+  padding: 0;
+  display: grid;
+  gap: 4px;
+}
+.games3-series-card li {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 4px;
+  align-items: center;
+  padding: 5px 6px;
+  border: 1px solid #3c3526;
+  background: #0d100a;
+}
+.games3-series-card li button[data-games-open] {
+  min-height: 0;
+  padding: 2px 0;
+  border: 0;
+  background: none;
+  color: #ded3b4;
+  font: 8px/1.4 var(--pixel);
+  text-align: left;
+  cursor: pointer;
+}
+.games3-series-card li span {
+  grid-column: 1 / -1;
+  color: #8d8471;
+  font-size: 8px;
+}
+.games3-series-card li button[data-game-launch] { grid-row: 1; }
+
+@media (max-width: 1450px) {
+  .games3-home-section[data-games-home-section="playing"] .games2-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+body[data-ui-scale="150"] .games3-home-section[data-games-home-section="playing"] .games2-grid,
+body[data-ui-scale="170"] .games3-home-section[data-games-home-section="playing"] .games2-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
