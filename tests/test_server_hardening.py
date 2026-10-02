@@ -54,6 +54,9 @@ class LiveServerTests(unittest.TestCase):
         with socket.socket() as sock:
             sock.bind(("127.0.0.1", 0)); cls.port = sock.getsockname()[1]
         env = os.environ.copy(); env["VAULT_TEST_STATE_DIR"] = cls.state.name
+        # Force the optional AI path off so keep-alive error handling is
+        # deterministic and never reaches an external service during tests.
+        env["OPENAI_API_KEY"] = ""
         cls.server = subprocess.Popen([sys.executable, str(ROOT / "vault_server.py"), "--port", str(cls.port), "--no-browser"], cwd=ROOT, env=env, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, creationflags=getattr(subprocess, "CREATE_NO_WINDOW", 0))
         deadline = time.time() + 20
         while time.time() < deadline:
@@ -82,6 +85,45 @@ class LiveServerTests(unittest.TestCase):
             return response.status, dict(response.getheaders()), response.read()
         finally:
             conn.close()
+    def test_error_response_does_not_desync_keep_alive(self):
+        conn = http.client.HTTPConnection("127.0.0.1", self.port, timeout=10)
+        try:
+            payload = json.dumps({"subjects": ["One Piece"], "asked": [], "count": 4}).encode()
+            conn.request("POST", "/__vault/home/trivia", body=payload, headers={
+                "X-Vault-Request": "home-trivia",
+                "Content-Type": "application/json",
+            })
+            first = conn.getresponse()
+            self.assertEqual(first.status, 503)
+            self.assertNotEqual(first.getheader("Connection"), "close")
+            first.read()
+
+            conn.request("GET", "/index.html")
+            second = conn.getresponse()
+            self.assertEqual(second.status, 200)
+            self.assertIn(b"<!doctype html>", second.read().lower())
+        finally:
+            conn.close()
+
+    def test_unread_unknown_post_forces_connection_close(self):
+        conn = http.client.HTTPConnection("127.0.0.1", self.port, timeout=10)
+        try:
+            conn.request("POST", "/__vault/does-not-exist", body=b'{"leftover":true}',
+                         headers={"Content-Type": "application/json"})
+            first = conn.getresponse()
+            self.assertEqual(first.status, 404)
+            self.assertEqual(first.getheader("Connection"), "close")
+            first.read()
+
+            # Reusing the HTTPConnection object must reconnect cleanly rather
+            # than parsing the old JSON body as a new request line.
+            conn.request("GET", "/index.html")
+            second = conn.getresponse()
+            self.assertEqual(second.status, 200)
+            second.read()
+        finally:
+            conn.close()
+
     def test_foreign_host_is_refused(self):
         self.assertEqual(self.request("GET", "/index.html", host="attacker.example")[0], 403)
         self.assertEqual(self.request("GET", "/__vault/state/mirror", host=f"attacker.example:{self.port}")[0], 403)

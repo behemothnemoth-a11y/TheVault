@@ -2185,6 +2185,10 @@ class VaultHandler(SimpleHTTPRequestHandler):
         # page cannot reach the local API or archive with same-origin access.
         if not super().parse_request():
             return False
+        # One handler instance may serve several HTTP/1.1 requests. Track body
+        # consumption per request so an early JSON response cannot leave bytes
+        # behind to be mistaken for the next request line.
+        self._request_body_consumed = False
         if not self.host_is_local():
             self.send_error(403)
             return False
@@ -2380,17 +2384,49 @@ class VaultHandler(SimpleHTTPRequestHandler):
     def request_is(self, name):
         return self.headers.get("X-Vault-Request") == name
 
-    def read_json(self, limit=10 * 1024 * 1024):
-        length = int(self.headers.get("Content-Length", "0"))
+    def request_body_length(self):
+        try:
+            return int(self.headers.get("Content-Length", "0") or 0)
+        except (TypeError, ValueError):
+            return -1
+
+    def read_request_body(self, limit):
+        length = self.request_body_length()
         if length <= 0 or length > limit:
             raise ValueError("invalid body length")
-        return json.loads(self.rfile.read(length).decode("utf-8"))
+        raw = self.rfile.read(length)
+        self._request_body_consumed = True
+        return raw
+
+    def discard_request_body(self, limit=4 * 1024):
+        if getattr(self, "_request_body_consumed", False):
+            return
+        length = self.request_body_length()
+        if length < 0 or length > limit:
+            raise ValueError("invalid body length")
+        if length:
+            self.rfile.read(length)
+        self._request_body_consumed = True
+
+    def read_json(self, limit=10 * 1024 * 1024):
+        return json.loads(self.read_request_body(limit).decode("utf-8"))
 
     def send_json(self, status, value):
         payload = json.dumps(value, separators=(",", ":")).encode("utf-8")
+        unread_body = (
+            self.command in {"POST", "PUT", "PATCH"} and
+            self.request_body_length() != 0 and
+            not getattr(self, "_request_body_consumed", False)
+        )
+        if unread_body:
+            # Never keep an HTTP/1.1 connection alive with unread request bytes.
+            # The next request would otherwise begin in the middle of that body.
+            self.close_connection = True
         self.send_response(status)
         self.send_header("Content-Type", "application/json; charset=utf-8")
         self.send_header("Content-Length", str(len(payload)))
+        if unread_body:
+            self.send_header("Connection", "close")
         self.end_headers()
         self.wfile.write(payload)
 
@@ -4954,11 +4990,13 @@ class VaultHandler(SimpleHTTPRequestHandler):
         if not self.request_is("daybook-flush"):
             self.send_json(403, {"ok": False, "error": "forbidden"})
             return
-        # Drain the body even though nothing is read from it. An unread request
-        # body strands the connection and the next request arrives mangled.
-        length = int(self.headers.get("Content-Length", "0") or 0)
-        if length > 0:
-            self.rfile.read(min(length, 4 * 1024))
+        # This endpoint has no payload, but callers still send {}. Consume it
+        # explicitly so the HTTP/1.1 connection remains reusable.
+        try:
+            self.discard_request_body(limit=4 * 1024)
+        except ValueError:
+            self.send_json(400, {"ok": False, "error": "bad_request"})
+            return
         self.send_json(200, {"ok": True, **daybook_flush_outbox()})
 
     def home_trivia(self):
@@ -4972,12 +5010,14 @@ class VaultHandler(SimpleHTTPRequestHandler):
         if not self.request_is("home-trivia"):
             self.send_json(403, {"ready": False, "error": "forbidden"})
             return
-        api_key = os.environ.get("OPENAI_API_KEY", "")
-        if not api_key:
-            self.send_json(503, {"ready": False, "error": "ai_not_configured"})
-            return
         try:
+            # Read the request before checking optional integrations. Returning
+            # early with an unread POST body corrupts the next keep-alive request.
             body = self.read_json(limit=64 * 1024)
+            api_key = os.environ.get("OPENAI_API_KEY", "")
+            if not api_key:
+                self.send_json(503, {"ready": False, "error": "ai_not_configured"})
+                return
             subjects = [bounded_text(value, 90) for value in (body.get("subjects") or []) if bounded_text(value, 90)][:24]
             asked = [bounded_text(value, 160) for value in (body.get("asked") or []) if bounded_text(value, 160)][:120]
             wanted = bounded_int(body.get("count"), 1, 12)
