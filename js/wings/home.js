@@ -11,6 +11,7 @@ import { missingFileReviewCount } from "../systems/missingFileReview.js?v=202610
 import { renderHomeArchiveCards } from "../systems/homeArchiveCards.js?v=20261001-home-final-v1";
 import { renderHomeCuriosities } from "../systems/homeCuriosities.js?v=20261001-home-city-v3";
 import { renderHomeNow } from "../systems/homeNow.js?v=20261001-home-final-v2";
+import { renderHalloweenPicker } from "../systems/halloweenPicker.js?v=20261002-halloween-picker-v1";
 
 // Home presents the collection first; maintenance stays available below it.
 
@@ -91,7 +92,7 @@ export function renderHome() {
   ];
 
   // Keep existing card actions and data sources inside the cinema layout.
-  const primaryHome = `${renderHomeStatusStrip({ health, scan, missingFiles, waiting })}${renderHomeNow(state)}`;
+  const primaryHome = `${renderHomeStatusStrip({ health, scan, missingFiles, waiting })}${renderHalloweenPicker(state)}${renderHomeNow(state)}`;
   const content = `<div class="cinema-layout"><div class="cinema-main">
     ${renderCinemaMedia(state, primaryHome)}
     ${renderHomeArchiveCards({ cinema: true })}

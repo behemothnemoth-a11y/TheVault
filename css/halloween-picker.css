@@ -1,0 +1,22 @@
+.halloween-picker{margin-top:12px;padding:16px;border:1px solid #4d394d;background:linear-gradient(145deg,#16101b,#0d1720 72%);border-radius:9px;box-shadow:none}
+.halloween-picker-head{display:flex;align-items:center;justify-content:space-between;gap:18px}
+.halloween-picker-head h2{margin:.15rem 0;color:#f0e8dd;font-size:21px}
+.halloween-picker-head p{margin:.25rem 0 0;color:#aab8c3;max-width:680px}
+.halloween-picker .eyebrow{color:#d59b5a!important}
+.halloween-kind{display:flex;gap:7px;flex-shrink:0}
+#view .halloween-kind .button{background:#151d26;border-color:#4a3c4e;color:#d7c6d9}
+#view .halloween-kind .button.primary{background:#d59b5a;border-color:#d59b5a;color:#1a1319}
+.halloween-empty{margin-top:13px;padding:17px;border:1px dashed #4a3c4e;background:#0c131a;display:flex;align-items:center;justify-content:space-between;gap:14px}
+.halloween-empty b{color:#e7dccf}
+.halloween-empty span{color:#8fa4b5;text-align:right}
+.halloween-pick{margin-top:13px;display:grid;grid-template-columns:110px minmax(0,1fr);gap:15px;padding:12px;border:1px solid #3d3444;background:#0b151d;border-radius:8px}
+.halloween-art{width:110px;height:92px;display:grid;place-items:center;overflow:hidden;background:#1d1822;border-radius:6px;color:#d59b5a;font-size:34px}
+.halloween-art img{width:100%;height:100%;object-fit:cover}
+.halloween-copy{min-width:0;display:flex;flex-direction:column;justify-content:center}
+.halloween-copy h3{margin:2px 0;color:#f0e8dd;font-size:19px}
+.halloween-copy p{margin:2px 0;color:#b6c0c7}
+.halloween-copy small{color:#8fa4b5;margin-top:2px}
+.halloween-actions{display:flex;gap:7px;flex-wrap:wrap;margin-top:10px}
+#view .halloween-actions .button{padding:7px 10px;background:#121e27;border-color:#3b4750;color:#d7e0e5}
+#view .halloween-actions .halloween-primary{background:#d59b5a;border-color:#d59b5a;color:#191317;font-weight:750}
+@media(max-width:700px){.halloween-picker-head{align-items:flex-start;flex-direction:column}.halloween-kind{width:100%}.halloween-kind .button{flex:1}.halloween-pick{grid-template-columns:1fr}.halloween-art{width:100%;height:130px}.halloween-empty{align-items:flex-start;flex-direction:column}.halloween-empty span{text-align:left}}
