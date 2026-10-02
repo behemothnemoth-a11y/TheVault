@@ -19,4 +19,5 @@
 .halloween-actions{display:flex;gap:7px;flex-wrap:wrap;margin-top:10px}
 #view .halloween-actions .button{padding:7px 10px;background:#121e27;border-color:#3b4750;color:#d7e0e5}
 #view .halloween-actions .halloween-primary{background:#d59b5a;border-color:#d59b5a;color:#191317;font-weight:750}
+.halloween-catalog-only{display:inline-flex;align-items:center;padding:7px 10px;border:1px solid #5a465e;background:#211723;color:#d6b6da;font-size:11px;font-weight:750;letter-spacing:.08em}
 @media(max-width:700px){.halloween-picker-head{align-items:flex-start;flex-direction:column}.halloween-kind{width:100%}.halloween-kind .button{flex:1}.halloween-pick{grid-template-columns:1fr}.halloween-art{width:100%;height:130px}.halloween-empty{align-items:flex-start;flex-direction:column}.halloween-empty span{text-align:left}}

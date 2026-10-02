@@ -22,7 +22,7 @@ import { toast } from "./ui/notifications.js";
 import { closeModal, openModal } from "./ui/modals.js";
 import { escapeHtml, safeTextList } from "./ui/safeHtml.js";
 import { openCommandPalette } from "./ui/commandPalette.js";
-import { renderHome } from "./wings/home.js?v=20261002-halloween-picker-v2";
+import { renderHome } from "./wings/home.js?v=20261002-halloween-pool-v1";
 import { ignoreMasterScanFiles, masterScanSuggestions, masterScanSummary, runMasterScan, sortMasterScanFiles } from "./systems/masterScan.js?v=20260912-master-scan-v1";
 import { claimReturningAudibleSession, correctAllBookMetadata, dismissBookRecommendation, enrichImportedBook, ensureBooks, findMissingBookCovers, finishBookAudibleSession, openAudibleProgressDialog, openBookAddDialog, openBookCoverPicker, openBookEditDialog, openBookMetadataReview, openBookRecommendationDialog, refreshBookRecommendations, refreshBookSeries, removeBook, renameBookCollection, renderBookPage, renderBookSeriesPage, renderBooksShell, renderBooksWing, setBookAudibleOwned, setBookField, setBookOwned, setBookPreference, startBookAudibleSession, toggleBookFavorite } from "./wings/books.js?v=20260830-metadata-checkpoints-v16";
 import { renderWingPlaceholder, unfinishedWingIds } from "./wings/placeholders.js?v=20261001-router-v1";
@@ -73,7 +73,7 @@ import { dismissAdaptiveSection, getAdaptiveHomePreferences, getRecommendationRe
 import { answerHomeTrivia, ensureHomeCommandCenter, openWeatherCard, refreshHomeRadar, refreshHomeTrivia, refreshHomeWeather } from "./systems/homeCommandCenter.js?v=20261001-home-city-v2";
 import { ensureHomeArchiveCards, rerollPlaySomething } from "./systems/homeArchiveCards.js?v=20261001-home-final-v1";
 import { addCountdown, ensureHomeCuriosities, refreshRabbitHole, removeCountdown } from "./systems/homeCuriosities.js?v=20261001-home-city-v3";
-import { chooseHalloweenKind, rerollHalloweenPick, skipHalloweenPick } from "./systems/halloweenPicker.js?v=20261002-halloween-picker-v2";
+import { chooseHalloweenKind, rerollHalloweenPick, skipHalloweenPick } from "./systems/halloweenPicker.js?v=20261002-halloween-pool-v1";
 import { ensureDaybook } from "./systems/daybook.js?v=20260913-daybook-v3";
 import { hydrateReviewQueue, resolveReviewItem } from "./systems/reviewQueue.js";
 import { artworkApprovalStats, pendingArtworkApprovals, resolveArtworkApproval, verifyAllPendingArtwork } from "./systems/artworkApproval.js?v=20260901-art-review-v2";
